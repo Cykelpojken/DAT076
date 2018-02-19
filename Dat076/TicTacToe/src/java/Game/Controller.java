@@ -5,23 +5,29 @@
  */
 package Game;
 
+import java.awt.Point;
+import java.util.*;
 import javax.ejb.Stateless;
 import javax.inject.Named;
-
+import java.util.Observable;
 /**
  *
  * @author huoo
  */
-@Named("bean")
+@Named("controller")
 @Stateless
-public class Bean {
+public class Controller extends Observable{
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    public String been(){
-        System.out.println("asd123");
+
+    public void Init(){
         Game game = new Game();
-        return game.Test1();
+        addObserver(game);
+    }
+    public void Update(int pos, int palyer){
+        Point point = new Point(pos, palyer);
+        notifyObservers(point);
     }
     
 }

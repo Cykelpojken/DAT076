@@ -8,7 +8,23 @@
     <h:body>
         asd
         <h:outputText value="Hello"/>
-        <h:outputText value="#{bean.been()}"/>
+        <h:outputText value="#{controller.init()}"/>
+<h:panelGrid columns="3">
+
+    <h:commandButton value="asd" actionListener="#{controller.update(0,1)}"/>
+    <h:commandButton value="asd" actionListener="#{controller.update(1,1)}"/>
+    <h:commandButton value="asd" actionListener="#{controller.update(2,1)}"/>   
+ 
+    <h:commandButton value="dsa" actionListener="#{controller.update(3,1)}"/>
+    <h:commandButton value="dsa" actionListener="#{controller.update(4,1)}"/>
+    <h:commandButton value="dsa" actionListener="#{controller.update(5,1)}"/>   
+    
+    <h:commandButton value="sad" actionListener="#{controller.update(6,1)}"/>
+    <h:commandButton value="sad" actionListener="#{controller.update(7,1)}"/>
+    <h:commandButton value="sad" actionListener="#{controller.update(8,1)}"/>              
+    
+</h:panelGrid>
+
     </h:body>
 </html>
 
