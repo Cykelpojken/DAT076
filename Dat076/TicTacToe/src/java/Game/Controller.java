@@ -9,7 +9,6 @@ import java.awt.Point;
 import java.util.*;
 import javax.ejb.Stateless;
 import javax.inject.Named;
-import java.util.Observable;
 import java.util.logging.Logger;
 /**
  *
