@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
     , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
     , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")})
-public class Users implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,10 +49,10 @@ public class Users implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(Integer id) {
+    public User(Integer id) {
         this.id = id;
     }
 
@@ -98,10 +98,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

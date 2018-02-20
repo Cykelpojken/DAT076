@@ -6,13 +6,29 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html">
     <head>
-        <title>TODO supply a title</title>
+        <title>Account Creation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         
+       <h:form> <!--Test code from tutorial, not working either-->
+         <h3>Read-Only input text box</h3>
+         <h:inputText value = "Hello World!" readonly = "true"/>
+         <h3>Read-Only input text box</h3>
+         <h:inputText value = "Hello World"/>
+         
+      </h:form>
+        <h:form>
+            <h:inputText id="id" value="#{AccBean.tmp.id}" size="5" title="Id" required="true"/>
+        <h:inputText id="username" value="#{AccBean.tmp.username}" size="5" title="Id" required="true"/>
+        <h:inputText id="password" value="#{AccBean.tmp.password}" size="5" title="Id" required="true"/>
+        <h:inputText id="email" value="#{AccBean.tmp.email}" size="5" title="Id" required="true"/>
+        
+        <h:commandButton value="Create" actionListener="#{AccBean.add()}"/>
+        </h:form>
+
 
     </body>
 </html>
