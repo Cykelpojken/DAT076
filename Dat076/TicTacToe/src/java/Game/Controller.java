@@ -10,24 +10,26 @@ import java.util.*;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import java.util.Observable;
+import java.util.logging.Logger;
 /**
  *
  * @author huoo
  */
 @Named("controller")
 @Stateless
-public class Controller extends Observable{
+public class Controller{
 
+    private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    private Game game = new Game();
+    public void update(int pos, int player){
+        LOG.info("Hej");
+        game.bupdate(pos, player);
+    }
+    public int getboardId(int i){
+        return game.getBoardId(i);
+    }
 
-    public void Init(){
-        Game game = new Game();
-        addObserver(game);
-    }
-    public void Update(int pos, int palyer){
-        Point point = new Point(pos, palyer);
-        notifyObservers(point);
-    }
     
 }
