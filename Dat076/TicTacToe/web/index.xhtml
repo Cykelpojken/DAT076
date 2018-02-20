@@ -9,17 +9,36 @@
     <h:form id="Board">
         <h:panelGrid columns="3">
 
-            <h:commandButton value="#{controller.getboardId(0)}" actionListener="#{controller.update(0,1)}" id="a"/>
-            <h:commandButton value="#{controller.getboardId(1)}" actionListener="#{controller.update(1,1)}" id="b"/>
-            <h:commandButton value="#{controller.getboardId(2)}" actionListener="#{controller.update(2,1)}"/>   
-
-            <h:commandButton value="#{controller.getboardId(3)}" actionListener="#{controller.update(3,1)}"/>
-            <h:commandButton value="#{controller.getboardId(4)}" actionListener="#{controller.update(4,1)}"/>
-            <h:commandButton value="#{controller.getboardId(5)}" actionListener="#{controller.update(5,1)}"/>   
-
-            <h:commandButton value="#{controller.getboardId(6)}" actionListener="#{controller.update(6,1)}"/>
-            <h:commandButton value="#{controller.getboardId(7)}" actionListener="#{controller.update(7,1)}"/>
-            <h:commandButton value="#{controller.getboardId(8)}" actionListener="#{controller.update(8,1)}"/>              
+            <h:commandLink action="#{controller.update(0,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(0)}"/>
+            </h:commandLink>
+            <h:commandLink action="#{controller.update(1,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(1)}"/>
+            </h:commandLink>
+            <h:commandLink action="#{controller.update(2,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(2)}"/>
+            </h:commandLink>
+            
+            <h:commandLink action="#{controller.update(3,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(3)}"/>
+            </h:commandLink>
+            <h:commandLink action="#{controller.update(4,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(4)}"/>
+            </h:commandLink>
+            <h:commandLink action="#{controller.update(5,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(5)}"/>
+            </h:commandLink>
+            
+            <h:commandLink action="#{controller.update(6,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(6)}"/>
+            </h:commandLink>
+            <h:commandLink action="#{controller.update(7,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(7)}"/>
+            </h:commandLink>
+            <h:commandLink action="#{controller.update(8,1)}">
+                <h:graphicImage library="img" name="#{controller.getImage(8)}"/>
+            </h:commandLink>
+        
 
         </h:panelGrid>
     </h:form>

@@ -24,7 +24,6 @@ public class Game{
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
     private int[] board;
     Random rand = new Random();
-    View view = new View();
     public Game(){
        board = new int[9];
        for(int i = 0; i < board.length; i ++)

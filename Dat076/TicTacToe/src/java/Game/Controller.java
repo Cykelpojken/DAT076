@@ -30,6 +30,16 @@ public class Controller{
     public int getboardId(int i){
         return game.getBoardId(i);
     }
-
+    
+    public String getImage(int id)
+    {
+        id = getboardId(id);
+        if(id == 1)
+            return "o.png";
+        else if(id == 2)
+            return "x.png";
+        else
+           return "blank.png";
+    }
     
 }
