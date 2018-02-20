@@ -32,21 +32,16 @@ public class Game{
     
     public void bupdate(int pos, int player) {
        LOG.info(Integer.toString(board[pos]));
-       if(!gameMove(pos, player))
+       if(gameMove(pos, player))
        {
-          //Illigal move
-       }
-       else{
-       //view.updateCell((char)(97 + pos), player);
-       }
-      
-       board[AIshit()] = 2;
+          board[AIshit()] = 2;
        
-       if(checkBoard()){
-           for(int i = 0; i < board.length; i++)
-           {
-               board[i] = 0;
-           }
+          if(checkBoard()){
+          for(int i = 0; i < board.length; i++)
+            {
+                board[i] = 0;
+            }
+       }
        }
     }
     private boolean gameMove(int pos, int player)
