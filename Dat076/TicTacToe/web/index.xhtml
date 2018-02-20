@@ -6,11 +6,12 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+    <a href="dbtest.xhtml">Click me</a>
     <h:form id="Board">
         <h:panelGrid columns="3">
 
-            <h:commandButton value="#{controller.getboardId(0)}" actionListener="#{controller.update(0,1)}" id="a"/>
-            <h:commandButton value="#{controller.getboardId(1)}" actionListener="#{controller.update(1,1)}" id="b"/>
+            <h:commandButton value="#{controller.getboardId(0)}" actionListener="#{controller.update(0,1)}" />
+            <h:commandButton value="#{controller.getboardId(1)}" actionListener="#{controller.update(1,1)}" />
             <h:commandButton value="#{controller.getboardId(2)}" actionListener="#{controller.update(2,1)}"/>   
 
             <h:commandButton value="#{controller.getboardId(3)}" actionListener="#{controller.update(3,1)}"/>
@@ -22,8 +23,10 @@
             <h:commandButton value="#{controller.getboardId(8)}" actionListener="#{controller.update(8,1)}"/>              
 
         </h:panelGrid>
+     
+                    
     </h:form>
-
+  
 
     </h:body>
 </html>
