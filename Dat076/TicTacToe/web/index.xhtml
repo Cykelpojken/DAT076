@@ -6,24 +6,24 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        asd
-        <h:outputText value="Hello"/>
-        <h:outputText value="#{controller.init()}"/>
-<h:panelGrid columns="3">
+    <h:form id="Board">
+        <h:panelGrid columns="3">
 
-    <h:commandButton value="asd" actionListener="#{controller.update(0,1)}"/>
-    <h:commandButton value="asd" actionListener="#{controller.update(1,1)}"/>
-    <h:commandButton value="asd" actionListener="#{controller.update(2,1)}"/>   
- 
-    <h:commandButton value="dsa" actionListener="#{controller.update(3,1)}"/>
-    <h:commandButton value="dsa" actionListener="#{controller.update(4,1)}"/>
-    <h:commandButton value="dsa" actionListener="#{controller.update(5,1)}"/>   
-    
-    <h:commandButton value="sad" actionListener="#{controller.update(6,1)}"/>
-    <h:commandButton value="sad" actionListener="#{controller.update(7,1)}"/>
-    <h:commandButton value="sad" actionListener="#{controller.update(8,1)}"/>              
-    
-</h:panelGrid>
+            <h:commandButton value="#{controller.getboardId(0)}" actionListener="#{controller.update(0,1)}" id="a"/>
+            <h:commandButton value="#{controller.getboardId(1)}" actionListener="#{controller.update(1,1)}" id="b"/>
+            <h:commandButton value="#{controller.getboardId(2)}" actionListener="#{controller.update(2,1)}"/>   
+
+            <h:commandButton value="#{controller.getboardId(3)}" actionListener="#{controller.update(3,1)}"/>
+            <h:commandButton value="#{controller.getboardId(4)}" actionListener="#{controller.update(4,1)}"/>
+            <h:commandButton value="#{controller.getboardId(5)}" actionListener="#{controller.update(5,1)}"/>   
+
+            <h:commandButton value="#{controller.getboardId(6)}" actionListener="#{controller.update(6,1)}"/>
+            <h:commandButton value="#{controller.getboardId(7)}" actionListener="#{controller.update(7,1)}"/>
+            <h:commandButton value="#{controller.getboardId(8)}" actionListener="#{controller.update(8,1)}"/>              
+
+        </h:panelGrid>
+    </h:form>
+
 
     </h:body>
 </html>

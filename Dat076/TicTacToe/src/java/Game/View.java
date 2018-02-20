@@ -16,4 +16,9 @@ public class View {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    public void updateCell(char id, int player)
+    {
+        //find div with id id
+        //value == player
+    }
 }
