@@ -29,9 +29,10 @@ public class Controller{
     public int getboardId(int i){
         return game.getBoardId(i);
     }
-    
+
     public String getImage(int id)
     {
+        LOG.info("asddds");
         id = getboardId(id);
         if(id == 1)
             return "o.png";
@@ -40,5 +41,5 @@ public class Controller{
         else
            return "blank.png";
     }
-    
+
 }
