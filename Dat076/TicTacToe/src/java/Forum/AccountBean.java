@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.registry.infomodel.User;
@@ -44,7 +45,17 @@ public class AccountBean {
         
     }
     public void create(){
+      List<Users> l = getList();
       Users u2 = new Users(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()); 
+      for(Users u : l){
+          if(u.getId() == u2.getId() || u.getUsername() == u2.getUsername() || u.getEmail() == u2.getEmail()){
+           return;
+          }
+      }
+      try{
       em.persist(u2);
+      }
+      catch(EntityExistsException e){
+      e.printStackTrace();}
     }
 }

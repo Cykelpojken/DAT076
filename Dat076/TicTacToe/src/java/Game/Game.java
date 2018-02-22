@@ -1,92 +1,70 @@
-package Game;
-
-
-import java.awt.Point;
-import java.util.Observable;
-import javax.inject.Named;
-import java.util.Observer;
-import java.util.Random;
-import java.util.logging.Logger;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Game;
+
+import javax.websocket.Session;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
- * @author huoo
+ * @author Arvid
  */
-
-@Named("game")
-public class Game{
-    private static final Logger LOG = Logger.getLogger(Game.class.getName());
-    private int[] board;
-    Random rand = new Random();
-    public Game(){
-       board = new int[9];
-       for(int i = 0; i < board.length; i ++)
-           board[i] = 0;
-    }
+public class Game {
+    public static Session player1;
+    public static Session player2;
+    private HashMap<Integer, BoardPiece> board;
+    private int playerTurn;
     
-    public void bupdate(int pos, int player) {
-       LOG.info(Integer.toString(board[pos]));
-       if(gameMove(pos, player))
-       {
-          board[AIshit()] = 2;
-       
-          if(checkBoard()){
-          for(int i = 0; i < board.length; i++)
-            {
-                board[i] = 0;
-            }
-       }
-       }
-    }
-    private boolean gameMove(int pos, int player)
+    public Game(Session player1, Session player2)
     {
-        if(board[pos] == 0){
-            board[pos] = player;
-            return true;
-        }
-        return false;
-    }
-    private boolean checkBoard(){
-        
-        return (checkRows() || checkLines() 
-                || (board[0] == board[4] && board[0] == board[8] && board[0] != 0) 
-                || (board[2] == board[4] && board[2] == board[6] && board[2] != 0));
-    }
-    
-    private boolean checkRows(){
-    for(int i = 0; i <= 6; i += 3){
-            if(board[i] == board[i + 1] && board[i] == board[i + 2] && board[i] != 0){
-                return true;
-            }
-        }
-            return false;
-    }
-    private boolean checkLines(){
-        for(int i = 0; i < 3; i ++){
-                if(board[i] == board[i + 3] && board[i] == board[i + 6] && board[i] != 0){
-                    return true;
-                }
-        }
-        return false;
-    }
-    
-    private int AIshit(){
-        int tmp = rand.nextInt(8);
-        while(board[tmp] != 0)
+        this.player1 = player1;
+        this.player2 = player2;
+        playerTurn = 1;
+        board = new HashMap<>();
+        for(int i = 1; i < 10; i++)
         {
-           tmp = rand.nextInt(8); 
+            board.put(i, new BoardPiece(i, ""));
         }
-        return tmp;
     }
     
-    public int getBoardId(int i){
-        return board[i];
+    public void changeBoard(int pos)
+    {
+        BoardPiece bp = board.get(pos);
+        if(playerTurn == 1)
+        {
+            bp.setValue("X");
+        }
+        else
+        {
+            bp.setValue("O");
+        }
+        changePlayerTurn();
+    }
+    
+    private void changePlayerTurn()
+    {
+        if(playerTurn == 1)
+            playerTurn = 2;
+        else
+            playerTurn = 1;
+    }
+    
+    public String getBoardState()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(playerTurn);
+        for(int i = 1; i <= board.size(); i++)
+        {
+            sb.append(";" + i + "," + board.get(i).getValue() + "");
+        }
+        return sb.toString();
+    } 
+
+    public int getPlayerTurn() {
+        return playerTurn;
     }
 }
-
