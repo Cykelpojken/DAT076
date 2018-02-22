@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package Game;
 
 import javax.websocket.Session;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Game {
     public static Session player2;
     private HashMap<Integer, BoardPiece> board;
     private int playerTurn;
-    
+
     public Game(Session player1, Session player2)
     {
         this.player1 = player1;
@@ -30,7 +30,7 @@ public class Game {
             board.put(i, new BoardPiece(i, ""));
         }
     }
-    
+
     public void changeBoard(int pos)
     {
         BoardPiece bp = board.get(pos);
@@ -44,7 +44,7 @@ public class Game {
         }
         changePlayerTurn();
     }
-    
+
     private void changePlayerTurn()
     {
         if(playerTurn == 1)
@@ -52,7 +52,7 @@ public class Game {
         else
             playerTurn = 1;
     }
-    
+
     public String getBoardState()
     {
         StringBuilder sb = new StringBuilder();
@@ -62,7 +62,7 @@ public class Game {
             sb.append(";" + i + "," + board.get(i).getValue() + "");
         }
         return sb.toString();
-    } 
+    }
 
     public int getPlayerTurn() {
         return playerTurn;
