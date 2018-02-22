@@ -4,29 +4,43 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html">
     <head>
         <title>Account Creation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         
-       <h:form> <!--Test code from tutorial, not working either-->
-         <h3>Read-Only input text box</h3>
-         <h:inputText value = "Hello World!" readonly = "true"/>
-         <h3>Read-Only input text box</h3>
-         <h:inputText value = "Hello World"/>
-         
-      </h:form>
+       
         <h:form>
-            <h:inputText id="id" value="#{AccBean.tmp.id}" size="5" title="Id" required="true"/>
-        <h:inputText id="username" value="#{AccBean.tmp.username}" size="5" title="Id" required="true"/>
-        <h:inputText id="password" value="#{AccBean.tmp.password}" size="5" title="Id" required="true"/>
-        <h:inputText id="email" value="#{AccBean.tmp.email}" size="5" title="Id" required="true"/>
-        
-        <h:commandButton value="Create" actionListener="#{AccBean.add()}"/>
+            <h:panelGrid columns="3">
+                
+                 <h:outputText value="Id: " />
+                 <h:inputText value="#{users.id}" title="id" id="id" required="true" />
+                <h:message for="name" style="color:red" />
+                
+                <h:outputText value="Username: " />
+                <h:inputText value="#{users.username}" title="name" id="name" required="true" />
+                <h:message for="name" style="color:red" />
+                
+                <h:outputText value="Password: " />
+                <h:inputText value="#{users.password}" title="password" id="password" required="true" />
+                <h:message for="name" style="color:red" />
+                
+                <h:outputText value="Email: " />
+                <h:inputText value="#{users.email}" title="emial" id="email" required="true" />
+                <h:message for="name" style="color:red" />
+                
+                <h:commandButton action="dbtest" actionListener="#{accountBean.create}" value="submit" />
+                
+                
+            </h:panelGrid>
+            
+            
         </h:form>
 
 

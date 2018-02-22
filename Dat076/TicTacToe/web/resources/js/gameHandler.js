@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var websocket = new WebSocket("ws:/localhost:8080/WebSocketPrj/gameServerEndpoint");
+var websocket = new WebSocket("ws:/localhost:8080/TicTacToe/gameServerEndpoint");
 
 var playerId;
 var currentPlayerMove = 0;
