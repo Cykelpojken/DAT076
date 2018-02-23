@@ -40,7 +40,6 @@ public class GameServerEndpoint {
     @OnOpen
     public void handleOpen(Session userSession) throws IOException
     {
-        print("Hello world");
         if(queue.isEmpty())
         {
             queue.add(userSession);
@@ -66,8 +65,8 @@ public class GameServerEndpoint {
     
     public void startGame(Session p1, Session p2) throws IOException
     {
-        p1.getUserProperties().put("playerId", "1");
-        p2.getUserProperties().put("playerId", "2");
+        p1.getUserProperties().put("playerId", 1);
+        p2.getUserProperties().put("playerId", 2);
         
         Game game = new Game(p1, p2);
         int key = createKey();
@@ -91,7 +90,7 @@ public class GameServerEndpoint {
         {
             if(data[1].contains("board"))
             {
-                int move = Integer.parseInt((String)userSession.getUserProperties().get("playerId"));
+                int move = (int)userSession.getUserProperties().get("playerId");
                 
                 if(move == game.getPlayerTurn())
                 {
@@ -113,8 +112,21 @@ public class GameServerEndpoint {
     {
         if(!queue.remove(userSession))
         {
-            
-            String s = (String) userSession.getUserProperties().get("gameId");
+            int i = (int) userSession.getUserProperties().get("gameId");
+            Game game = games.get(i);
+            if((int)userSession.getUserProperties().get("playerId") == 1)
+            {
+                notifyPlayer("conlost", "", game.player2);
+                queue.add(game.player2);
+                notifyPlayer("queue", "", game.player2);
+            }
+            else if((int)userSession.getUserProperties().get("playerId") == 2)
+            {
+                notifyPlayer("conlost", "", game.player1);
+                queue.add(game.player1);
+                notifyPlayer("queue", "", game.player1);
+            }
+            games.remove(i);
         }
     }
 

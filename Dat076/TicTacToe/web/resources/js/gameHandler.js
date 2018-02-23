@@ -8,8 +8,12 @@ var websocket = new WebSocket("ws:/localhost:8080/TicTacToe/gameServerEndpoint")
 var playerId;
 var currentPlayerMove = 0;
 var gameId;
+var boardElements;
 
-var boardElements = document.getElementsByClassName("boardPiece");
+window.addEventListener('load', function() {
+  console.log('All assets are loaded')
+  boardElements = document.getElementsByClassName("boardPiece");
+})
 
 websocket.onmessage = function processMessage(message)
 {
@@ -38,11 +42,16 @@ websocket.onmessage = function processMessage(message)
         {
             handleUpdate(data);
         }
+        else if(data[0] === "conlost")
+        {
+            handleConnectionLoss(data);
+        }
     }
 }
 
 function sendMessage(type, message)
 {
+    
     //console.log("sending");
     websocket.send(type + ":" + message);
 }
@@ -51,7 +60,6 @@ function makeMove(id)
 {
     if(currentPlayerMove === 0)
     {
-      console.log("asd");
     }
     else if(playerId === currentPlayerMove)
     {
@@ -114,5 +122,13 @@ function handleUpdate(data)
     {
         bp = splitData[i].split(",");
         document.getElementById("board" + bp[0]).innerHTML = bp[1];
+    }
+}
+
+function handleConnectionLoss(data)
+{
+    for(var i = 0; i < boardElements.length; i++)
+    {
+        document.getElementById(boardElements[i].id).innerHTML = "";
     }
 }
