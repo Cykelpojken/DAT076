@@ -31,4 +31,18 @@ public class BoardPiece {
     {
         this.value = value;
     }
+    
+    public int checkValue()
+    {
+        if(value.equals("X"))
+        {
+            return 1;
+        }
+        else if(value.equals("O"))
+        {
+            return 2;
+        }
+        else 
+            return 0;
+    }
 }

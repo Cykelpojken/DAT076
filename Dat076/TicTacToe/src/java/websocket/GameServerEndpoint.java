@@ -42,6 +42,7 @@ public class GameServerEndpoint {
     public void handleOpen(Session userSession) throws IOException
     {
         lobby.add(userSession);
+        userSession.getUserProperties().put("status", "lobby");
         
     }
     
@@ -61,6 +62,9 @@ public class GameServerEndpoint {
         p1.getUserProperties().put("playerId", 1);
         p2.getUserProperties().put("playerId", 2);
         
+        p1.getUserProperties().put("status", "playing");
+        p2.getUserProperties().put("status", "playing");
+        
         Game game = new Game(p1, p2);
         int key = createKey();
         p1.getUserProperties().put("gameId", key);
@@ -76,7 +80,6 @@ public class GameServerEndpoint {
     @OnMessage
     public void handleMessage(String message, Session userSession) throws IOException
     {
-        print(message);
         Game game = games.get(userSession.getUserProperties().get("gameId"));
         
         String[] data = message.split(":");
@@ -90,19 +93,30 @@ public class GameServerEndpoint {
                 {
                     game.changeBoard(Integer.parseInt(data[1].replace("board", "")));
                 }
+                
             }
+            
+            int result = game.checkBoard();
             notifyPlayer("update", game.getBoardState(), game.player1);
             notifyPlayer("update", game.getBoardState(), game.player2);
+            if(result != 0)
+            {
+                notifyPlayer("finish", "" + result, game.player1);
+                notifyPlayer("finish", "" + result, game.player2);
+            }
         }
         if(data[0].equals("queue"))
         {
             if(queue.isEmpty())
             {
                 queue.add(userSession);
+                userSession.getUserProperties().put("status", "queue");
                 notifyPlayer("queue", "", userSession);
+                
             }
-            else
+            else if(!queue.contains(userSession))
             {
+                
                 Iterator<Session> iterator = queue.iterator();
                 Session p1 = iterator.next();
                 startGame(p1, userSession);

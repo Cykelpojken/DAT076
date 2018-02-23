@@ -67,4 +67,59 @@ public class Game {
     public int getPlayerTurn() {
         return playerTurn;
     }
+    
+    public int checkBoard()
+    {
+        System.out.println("asfasd" + board.get(1).getValue());
+        
+        int x = checkCross();
+        if(x != 0)
+        {
+            return x;
+        }
+        int r = checkRows();
+        if(r != 0)
+        {
+            return r;
+        }
+        int l = checkLines();
+        if(l != 0)
+        {
+            return l;
+        }
+        return 0;
+    }
+    
+    private int checkRows(){
+        for(int i = 1; i < board.size(); i += 3)
+        {
+            
+            if(board.get(i).checkValue() == board.get(i + 1).checkValue() && board.get(i).checkValue() == board.get(i + 2).checkValue() && board.get(i).checkValue() != 0)
+            {
+                return board.get(i).checkValue(); 
+            }
+        }
+        
+        return 0;
+    }
+    
+    private int checkLines(){
+        for(int i = 1; i < 3; i ++){
+            if(board.get(i).checkValue() == board.get(i + 3).checkValue() && board.get(i).checkValue() == board.get(i + 6).checkValue() && board.get(i).checkValue() != 0)
+            {
+                return board.get(i).checkValue(); 
+            }
+        }
+        return 0;
+    }
+
+    private int checkCross(){
+        
+        if(board.get(1).checkValue() == board.get(5).checkValue() && board.get(1).checkValue() == board.get(9).checkValue() && board.get(1).checkValue() != 0
+            || board.get(3).checkValue() == board.get(5).checkValue() && board.get(3).checkValue() == board.get(7).checkValue() && board.get(5).checkValue() != 0)
+        {
+                return board.get(5).checkValue(); 
+        }
+        return 0;
+    }
 }

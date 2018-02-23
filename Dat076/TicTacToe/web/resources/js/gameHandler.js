@@ -6,9 +6,12 @@ var currentPlayerMove = 0;
 var gameId;
 var boardElements;
 
+
+
 window.addEventListener('load', function() {
   console.log('All assets are loaded')
   boardElements = document.getElementsByClassName("boardPiece");
+  handleInit();
 })
 
 websocket.onmessage = function processMessage(message)
@@ -38,6 +41,10 @@ websocket.onmessage = function processMessage(message)
         {
             handleUpdate(data);
         }
+        else if(data[0] === "finish")
+        {
+            handleFinish(data);
+        }
         else if(data[0] === "conlost")
         {
             handleConnectionLoss(data);
@@ -54,6 +61,10 @@ function sendMessage(type, message)
 
 function placeInQueue()
 {
+    for(var i = 0; i < boardElements.length; i++)
+    {
+        document.getElementById(boardElements[i].id).innerHTML = "";
+    }
     sendMessage("queue", "")
 }
 
@@ -89,9 +100,7 @@ function handleQueue(data)
 
 function handleInit(data)
 {
-    playerId = parseInt(data[1]);
-    playerIdText.innerHTML = "You are player " + playerId + "\n";
-    statusText.innerHTML = "Waiting...";
+    playerIdText.innerHTML = "Press find game to search for an opponent.";
 }
 
 function handleStart(data)
@@ -126,11 +135,24 @@ function handleUpdate(data)
     }
 }
 
+function handleFinish(data)
+{
+    if(parseInt(data[1]) === playerId)
+    {
+        statusText.innerHTML =  "Congratulations! You are the winner!"
+    }
+    else
+    {
+        statusText.innerHTML =  "You lost! Git good kid."
+    }
+}
+
 function handleConnectionLoss(data)
 {
     for(var i = 0; i < boardElements.length; i++)
     {
         document.getElementById(boardElements[i].id).innerHTML = "";
     }
+    handleInit(data);
 }
 
