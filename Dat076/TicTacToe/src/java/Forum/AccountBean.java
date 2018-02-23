@@ -12,13 +12,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.registry.infomodel.User;
+import oldGame.Game;
 
 /**
  *
@@ -27,7 +31,7 @@ import javax.xml.registry.infomodel.User;
 @Stateless
 @Named
 public class AccountBean {
-    
+    private static final Logger LOG = Logger.getLogger(AccountBean.class.getName());
     @PersistenceContext
     EntityManager em;
     
@@ -36,19 +40,11 @@ public class AccountBean {
     public List getList(){
         return em.createNamedQuery("Users.findAll").getResultList();
     }
-    public void h(){
-        Users user = new Users();
-        user.setId(5);
-        user.setEmail("sad");
-        user.setUsername("assdsd");
-        user.setPassword("password");
-        
-    }
     public void create(){
       List<Users> l = getList();
       Users u2 = new Users(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()); 
       for(Users u : l){
-          if(u.getId() == u2.getId() || u.getUsername() == u2.getUsername() || u.getEmail() == u2.getEmail()){
+          if(Objects.equals(u.getId(), u2.getId()) || u.getUsername().equals(u2.getUsername()) || u.getEmail().equals(u2.getEmail())){
            return;
           }
       }
@@ -57,5 +53,18 @@ public class AccountBean {
       }
       catch(EntityExistsException e){
       e.printStackTrace();}
+    }
+    public void login(){
+        List<Users> l = getList();
+        for(Users u : l){
+          if(u.getUsername().equals(user.getUsername()) || u.getPassword().equals(user.getPassword()))
+          {
+              try{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("dbtest.xhtml");
+              }
+              catch(Exception e){}
+
+          }
+      }
     }
 }
