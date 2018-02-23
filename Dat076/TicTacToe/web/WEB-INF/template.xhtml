@@ -7,18 +7,26 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Facelets Template</title>
+        <h:outputStylesheet library="css" name="default.css" />
     </h:head>
 
     <h:body>
 
-        <div id="top" class="top">
-             <a href="dbtest.xhtml">Account Creation</a>
-            <a href="game1.xhtml">Game of the games</a>
-            <a href="game2.xhtml">Game of the trash</a>
+        <div id="header">
+            <div id="navbar">
+                <a href="index.xhtml">Home</a>
+                <a href="dbtest.xhtml">Account Creation</a>
+                <a href="modifyAccount.xhtml">Modify Account</a>
+                <a href="game2.xhtml">Game of the trash</a>
+            </div> 
         </div>
 
-        <div id="content" class="center_content">
+        <div id="content">
             <ui:insert name="content">Content</ui:insert>
+        </div>
+        
+        <div id="footer">
+            <p>Made by the bosses | True story</p>
         </div>
 
     </h:body>
