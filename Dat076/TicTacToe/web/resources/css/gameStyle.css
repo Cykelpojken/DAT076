@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 .boardPiece {
+    display: block;
     float: left;
     margin: 5px;
     width: 100px;
@@ -22,8 +23,30 @@ and open the template in the editor.
 .boardPiece:hover {
     cursor: pointer;
 }
+
 .boardRow:after {
     content: "";
     display: table;
     clear: both;
+}
+
+.gameBoard {
+    margin: auto;
+    width: 60%;
+    height: 80%;
+    margin-top: 50px;
+}
+
+.gameView {
+    height: 100%;
+}
+.searchView {
+    display: none;
+}
+
+button {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    font-size: 20px;
 }

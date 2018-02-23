@@ -29,6 +29,7 @@ import java.util.Map;
 
 @ServerEndpoint("/gameServerEndpoint")
 public class GameServerEndpoint {
+    static Set<Session> lobby = Collections.synchronizedSet(new HashSet<Session>());
     static Set<Session> queue = Collections.synchronizedSet(new HashSet<Session>());
     
     static Map<Integer, Game> games = Collections.synchronizedMap(new HashMap<>());
@@ -40,17 +41,8 @@ public class GameServerEndpoint {
     @OnOpen
     public void handleOpen(Session userSession) throws IOException
     {
-        if(queue.isEmpty())
-        {
-            queue.add(userSession);
-            notifyPlayer("queue", "", userSession);
-        }
-        else
-        {
-            Iterator<Session> iterator = queue.iterator();
-            Session p1 = iterator.next();
-            startGame(p1, userSession);
-        }
+        lobby.add(userSession);
+        
     }
     
     public void notifyPlayer(String type, String message, Session user) throws IOException
@@ -60,6 +52,7 @@ public class GameServerEndpoint {
     
     public int createKey()
     {
+        //Generate unique key.
         return 1;
     }
     
@@ -83,6 +76,7 @@ public class GameServerEndpoint {
     @OnMessage
     public void handleMessage(String message, Session userSession) throws IOException
     {
+        print(message);
         Game game = games.get(userSession.getUserProperties().get("gameId"));
         
         String[] data = message.split(":");
@@ -100,6 +94,20 @@ public class GameServerEndpoint {
             notifyPlayer("update", game.getBoardState(), game.player1);
             notifyPlayer("update", game.getBoardState(), game.player2);
         }
+        if(data[0].equals("queue"))
+        {
+            if(queue.isEmpty())
+            {
+                queue.add(userSession);
+                notifyPlayer("queue", "", userSession);
+            }
+            else
+            {
+                Iterator<Session> iterator = queue.iterator();
+                Session p1 = iterator.next();
+                startGame(p1, userSession);
+            }
+        }
     }
     
     public void print(String s)
@@ -110,6 +118,7 @@ public class GameServerEndpoint {
     @OnClose
     public void handleClose(Session userSession) throws Exception
     {
+        lobby.remove(userSession);
         if(!queue.remove(userSession))
         {
             int i = (int) userSession.getUserProperties().get("gameId");
