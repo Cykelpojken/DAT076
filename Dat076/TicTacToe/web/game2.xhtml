@@ -15,12 +15,23 @@
             <ui:define name="content">
                 <h:outputStylesheet library="css" name="gameStyle.css" />
                 <h:outputScript library="js" name="gameHandler.js" />
+                <h:outputScript library="js" name="viewHandler.js" />
                 
                 <div class ="gameView">
-                    <p id="playerIdText"></p>
-                    <p id="statusText"></p>
-
-                    <div class = "gameBoard">
+                    <div id ="preGame">
+                        <button class="leftGameBtn" type="button" onclick="joinQueue()">Find Game</button>
+                        <button class="rightGameBtn" type="button" onclick="swapDisplay('createGameView')">Create game</button>
+                        
+                        <div id="createGameView">
+                        </div>
+                    </div>
+                    <div id ="inGame">
+                        <button class="rightGameBtn" type="button">Cancel</button>
+                        <p id="playerIdText"></p><br></br>
+                        <p id="statusText"></p>
+                    </div>
+                         
+                    <div id = "gameBoard">
                         <div class="boardRow">
                             <div id="board1" class="boardPiece" onclick="makeMove(this.id);"></div>
                             <div id="board2" class="boardPiece" onclick="makeMove(this.id);"></div>
@@ -36,10 +47,6 @@
                             <div id="board8" class="boardPiece" onclick="makeMove(this.id);"></div>
                             <div id="board9" class="boardPiece" onclick="makeMove(this.id);"></div>
                         </div>
-                    </div>
-
-                    <div class = "searchGame">
-                        <button type="button" onclick="placeInQueue()">Find Game!</button>
                     </div>
                 </div>
                 

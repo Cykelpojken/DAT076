@@ -59,8 +59,11 @@ function sendMessage(type, message)
     websocket.send(type + ":" + message);
 }
 
-function placeInQueue()
+function joinQueue()
 {
+    document.getElementById('preGame').style.display = 'none';
+    document.getElementById('inGame').style.display = 'block';
+    document.getElementById('gameBoard').style.display = 'block';
     for(var i = 0; i < boardElements.length; i++)
     {
         document.getElementById(boardElements[i].id).innerHTML = "";

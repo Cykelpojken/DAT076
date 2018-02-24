@@ -8,6 +8,66 @@ and open the template in the editor.
     Author     : Arvid
 */
 
+.gameView {
+    margin: auto;
+    padding: 60px;
+    border: solid 3px #ccc;
+    min-height: 70vh;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover 
+{
+    background-color: #2e9900;
+}
+
+#findGameView {
+    display: none;
+    float: left;
+    padding: 20px;
+    width: 30%; /* Full width */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#createGameView {
+    display: none;
+    float: right;
+    padding: 20px;
+    width: 30%; /* Full width */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.rightGameBtn {
+    display: block;    
+    float: right;
+}
+
+.leftGameBtn {
+    display: inline-block;    
+    float: left;
+}
+
+#inGame{
+    display: none;
+}
+#inGame p {
+    display: inline-block;
+}
+
+#gameBoard {
+    margin: auto;
+    display: none;
+    padding: 20px;
+}
+
 .boardPiece {
     display: block;
     float: left;
@@ -21,32 +81,11 @@ and open the template in the editor.
     line-height: 100px;   
 }
 .boardPiece:hover {
+    background-color: #ccc;
     cursor: pointer;
 }
 
-.boardRow:after {
-    content: "";
+.boardRow {
+    margin:auto;
     display: table;
-    clear: both;
-}
-
-.gameBoard {
-    margin: auto;
-    width: 60%;
-    height: 80%;
-    margin-top: 50px;
-}
-
-.gameView {
-    height: 100%;
-}
-.searchView {
-    display: none;
-}
-
-button {
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    font-size: 20px;
 }
