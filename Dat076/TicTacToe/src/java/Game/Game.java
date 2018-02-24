@@ -69,7 +69,10 @@ public class Game {
     
     public int checkBoard()
     {
-        
+        if(checkTie())
+        {
+            return 3;
+        }
         int x = checkCross();
         if(x != 0)
         {
@@ -102,7 +105,7 @@ public class Game {
     }
     
     private int checkLines(){
-        for(int i = 1; i < 3; i ++){
+        for(int i = 1; i < board.size()/3; i ++){
             if(board.get(i).checkValue() == board.get(i + 3).checkValue() && board.get(i).checkValue() == board.get(i + 6).checkValue() && board.get(i).checkValue() != 0)
             {
                 return board.get(i).checkValue(); 
@@ -119,5 +122,16 @@ public class Game {
                 return board.get(5).checkValue(); 
         }
         return 0;
+    }
+
+    private boolean checkTie() {
+        for(int i = 1; i <= board.size(); i++)
+        {
+            if(board.get(i).checkValue() == 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

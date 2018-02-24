@@ -153,6 +153,10 @@ function handleFinish(data)
     {
         statusText.innerHTML =  "Congratulations! You are the winner!"
     }
+    else if(parseInt(data[1]) === 3)
+    {
+        statusText.innerHTML =  "It's a draw."
+    }
     else
     {
         statusText.innerHTML =  "You lost! Git good kid."
