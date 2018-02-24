@@ -32,7 +32,7 @@ body {
 #content {
     margin: auto;
     width: 50%;
-    min-height: 80vh;
+    min-height: 75vh;
     border: solid 3px #ccc;
 }
 
