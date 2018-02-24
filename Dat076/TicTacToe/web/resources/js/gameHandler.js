@@ -71,6 +71,14 @@ function joinQueue()
     sendMessage("queue", "")
 }
 
+function leaveQueue()
+{
+    document.getElementById('preGame').style.display = 'block';
+    document.getElementById('inGame').style.display = 'none';
+    document.getElementById('gameBoard').style.display = 'none';
+    sendMessage("leave", "")
+}
+
 function makeMove(id)
 {
     if(currentPlayerMove === 0)
@@ -140,6 +148,7 @@ function handleUpdate(data)
 
 function handleFinish(data)
 {
+    currentPlayerMove = 0;
     if(parseInt(data[1]) === playerId)
     {
         statusText.innerHTML =  "Congratulations! You are the winner!"

@@ -31,7 +31,7 @@ import java.util.Map;
 public class GameServerEndpoint {
     static Set<Session> lobby = Collections.synchronizedSet(new HashSet<Session>());
     static Set<Session> queue = Collections.synchronizedSet(new HashSet<Session>());
-    
+    private static int currentKey = 0;
     static Map<Integer, Game> games = Collections.synchronizedMap(new HashMap<>());
     
     //static Session player1 = null;
@@ -43,7 +43,6 @@ public class GameServerEndpoint {
     {
         lobby.add(userSession);
         userSession.getUserProperties().put("status", "lobby");
-        
     }
     
     public void notifyPlayer(String type, String message, Session user) throws IOException
@@ -53,8 +52,8 @@ public class GameServerEndpoint {
     
     public int createKey()
     {
-        //Generate unique key.
-        return 1;
+        currentKey++;
+        return currentKey;
     }
     
     public void startGame(Session p1, Session p2) throws IOException
@@ -101,8 +100,12 @@ public class GameServerEndpoint {
             notifyPlayer("update", game.getBoardState(), game.player2);
             if(result != 0)
             {
+                game.player1.getUserProperties().put("status", "lobby");
+                game.player2.getUserProperties().put("status", "lobby");
                 notifyPlayer("finish", "" + result, game.player1);
                 notifyPlayer("finish", "" + result, game.player2);
+                
+                games.remove(userSession.getUserProperties().get("gameId"));
             }
         }
         if(data[0].equals("queue"))
@@ -116,12 +119,46 @@ public class GameServerEndpoint {
             }
             else if(!queue.contains(userSession))
             {
-                
                 Iterator<Session> iterator = queue.iterator();
                 Session p1 = iterator.next();
                 startGame(p1, userSession);
+                queue.remove(p1);
             }
         }
+        if(data[0].equals("leave"))
+        {
+            String status = (String)userSession.getUserProperties().get("status");
+            if(status.equals("queue"))
+            {
+                userSession.getUserProperties().put("status", "lobby");
+                queue.remove(userSession);
+            }
+            else if(status.equals("playing"))
+            {
+                handleLeaveGame(userSession);
+            }
+        }
+    }
+    
+    public void handleLeaveGame(Session userSession) throws IOException
+    {
+        int i = (int) userSession.getUserProperties().get("gameId");
+        Game game = games.get(i);
+        if((int)userSession.getUserProperties().get("playerId") == 1)
+        {
+            notifyPlayer("conlost", "", game.player2);
+            game.player2.getUserProperties().put("status", "queue");
+            queue.add(game.player2);
+            notifyPlayer("queue", "", game.player2);
+        }
+        else if((int)userSession.getUserProperties().get("playerId") == 2)
+        {
+            notifyPlayer("conlost", "", game.player1);
+            game.player1.getUserProperties().put("status", "queue");
+            queue.add(game.player1);
+            notifyPlayer("queue", "", game.player1);
+        }
+        games.remove(i);
     }
     
     public void print(String s)
@@ -133,23 +170,14 @@ public class GameServerEndpoint {
     public void handleClose(Session userSession) throws Exception
     {
         lobby.remove(userSession);
-        if(!queue.remove(userSession))
+        String status = (String)userSession.getUserProperties().get("status");
+        if(status.equals("queue"))
         {
-            int i = (int) userSession.getUserProperties().get("gameId");
-            Game game = games.get(i);
-            if((int)userSession.getUserProperties().get("playerId") == 1)
-            {
-                notifyPlayer("conlost", "", game.player2);
-                queue.add(game.player2);
-                notifyPlayer("queue", "", game.player2);
-            }
-            else if((int)userSession.getUserProperties().get("playerId") == 2)
-            {
-                notifyPlayer("conlost", "", game.player1);
-                queue.add(game.player1);
-                notifyPlayer("queue", "", game.player1);
-            }
-            games.remove(i);
+            queue.remove(userSession);
+        }
+        else if(status.equals("playing"))
+        {
+            handleLeaveGame(userSession);
         }
     }
 

@@ -6,7 +6,6 @@
 package Game;
 
 import javax.websocket.Session;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -70,7 +69,6 @@ public class Game {
     
     public int checkBoard()
     {
-        System.out.println("asfasd" + board.get(1).getValue());
         
         int x = checkCross();
         if(x != 0)
