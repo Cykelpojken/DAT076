@@ -11,8 +11,6 @@ and open the template in the editor.
 .gameView {
     margin: auto;
     padding: 60px;
-    border: solid 3px #ccc;
-    min-height: 70vh;
 }
 
 button {

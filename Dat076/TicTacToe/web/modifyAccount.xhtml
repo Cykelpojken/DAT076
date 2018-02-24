@@ -7,30 +7,32 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://xmlns.jcp.org/jsf/html">
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-        <h:form>
-            <h:panelGrid columns="3">
-               
-                
-                <h:outputText value="Username: " />
-                <h:inputText value="#{users.username}" title="name" id="name" required="true" />
-                <h:message for="name" style="color:red" />
-                
-                <h:outputText value="Password: " />
-                <h:inputText value="#{users.password}" title="password" id="password" required="true" />
-                <h:message for="name" style="color:red" />
-                
-                <h:commandButton action="dbtest" actionListener="#{accountBean.login}" value="submit" />
-                
-                <br></br> 
-                <a href="modifyAccount.xhtml">Account Settings</a>
+        <ui:composition template="./WEB-INF/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="3">
 
-            </h:panelGrid>
-                
-            
-        </h:form>
+                        <h:outputText value="Username: " />
+                        <h:inputText value="#{users.username}" title="name" id="name" required="true" />
+                        <h:message for="name" style="color:red" />
+
+                        <h:outputText value="Password: " />
+                        <h:inputText value="#{users.password}" title="password" id="password" required="true" />
+                        <h:message for="name" style="color:red" />
+
+                        <h:commandButton action="dbtest" actionListener="#{accountBean.login}" value="submit" />
+
+                        <br></br> 
+                        <a href="modifyAccount.xhtml">Account Settings</a>
+
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
 </html>
