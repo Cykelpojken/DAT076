@@ -26,7 +26,7 @@ and open the template in the editor.
                         <h:inputText value="#{users.password}" title="password" id="password" required="true" />
                         <h:message for="name" style="color:red" />
 
-                        <h:commandButton action="dbtest" actionListener="#{accountBean.login}" value="submit" />
+                        <h:commandButton action="dbtest" actionListener="#{accountBean.validateUsernamePassword}" value="submit" />
 
                         <br></br> 
                         <a href="modifyAccount.xhtml">Account Settings</a>

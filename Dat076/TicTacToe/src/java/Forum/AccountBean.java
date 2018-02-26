@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
+import javax.annotation.ManagedBean;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -54,7 +55,7 @@ public class AccountBean {
       catch(EntityExistsException e){
       e.printStackTrace();}
     }
-    public void login(){
+    public void validateUsernamePassword(){
         List<Users> l = getList();
         for(Users u : l){
           if(u.getUsername().equals(user.getUsername()) || u.getPassword().equals(user.getPassword()))
