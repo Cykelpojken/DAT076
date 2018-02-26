@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -41,6 +42,11 @@ public class AccountBean {
     public List getList(){
         return em.createNamedQuery("Users.findAll").getResultList();
     }
+    
+    public Users getUser(String name){
+        return (Users)em.createNamedQuery("Users.findByUsername").setParameter("username", name).getSingleResult();
+    }
+    
     public void create(){
       List<Users> l = getList();
       Users u2 = new Users(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()); 
@@ -56,16 +62,24 @@ public class AccountBean {
       e.printStackTrace();}
     }
     public void validateUsernamePassword(){
+        System.out.println("dsaf");
         List<Users> l = getList();
+        System.out.println(l.size());
         for(Users u : l){
           if(u.getUsername().equals(user.getUsername()) || u.getPassword().equals(user.getPassword()))
           {
               try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("dbtest.xhtml");
+                  System.out.println("dsaf");
+                  editUsername();
               }
               catch(Exception e){}
 
           }
       }
+    }
+    public void editUsername(){
+        Users u = getUser(user.getUsername());
+        u.setUsername("kalle");
+        
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <title>TicTacToe</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="./WEB-INF/template.xhtml">
+        <ui:define name="content">
+            <form action="attemptlogin" method="get">
+                    <panelGrid columns="3">
+
+                        <outputText value="Username: " />
+                        <input type="text" name="username" placeholder="Username" required="true"/>
+
+                        <outputText value="Password: " />
+                        <input type="text" name="password" placeholder="Password" required="true"/>
+
+                        <input type="submit" value="Login"></input>
+                        
+                        <br/><div>Don't have an account yet?</div><br/>
+                        <a href="dbtest.xhtml">Create Account</a>
+                        
+                        
+
+                    </panelGrid>
+            </form>
+        </ui:define>
+        </ui:composition>
+    </body>
+</html>
