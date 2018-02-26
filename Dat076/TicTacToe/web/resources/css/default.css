@@ -33,6 +33,19 @@ input[type=submit]:hover
     background-color: #1A2930;
     margin-bottom: 3vh
 }
+#loginbar
+{
+    float:right;
+    width: 10%;
+    height: 7vh;
+    line-height:7vh;
+    margin: auto;
+}
+#loginbar span {
+    color:white;
+    padding: 0 10px;
+}
+
 #navbar {
     margin: auto;
     width: 60%;

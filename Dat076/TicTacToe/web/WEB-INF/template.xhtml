@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -19,6 +20,22 @@
                 <a href="game.xhtml">Game</a>
                 <a href="forum.xhtml">Forum</a>
                 <a href="modifyAccount.xhtml">Account</a>
+            </div>
+            <div id="loginbar">
+                <c:set var = "name" scope = "session" value = "#{session.getAttribute('username')}"/>
+                <c:choose>
+                    <c:when test="${name != null}">
+                        <form action="/logout" method="get">
+                            <h:outputText styleClass="" value="#{session.getAttribute('username')}"/>
+                            <button type="submit">Logout</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form action="login.xhtml" method="post">
+                            <button type="submit">Login</button>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 
