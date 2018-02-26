@@ -10,38 +10,28 @@ and open the template in the editor.
 
 .gameView {
     margin: auto;
-    padding: 40px;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover 
-{
-    background-color: #2e9900;
+    padding: 4vh 4vh;
 }
 
 #findGameView {
     display: none;
     float: left;
     padding: 20px;
-    width: 30%; /* Full width */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 30%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); 
 }
 
 #createGameView {
     display: none;
     float: right;
     padding: 20px;
-    width: 30%; /* Full width */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 30%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
 }
 .rightGameBtn {
     display: block;    
@@ -79,7 +69,7 @@ button:hover
     line-height: 100px;   
 }
 .boardPiece:hover {
-    background-color: #ccc;
+    background-color: #cccccc;
     cursor: pointer;
 }
 

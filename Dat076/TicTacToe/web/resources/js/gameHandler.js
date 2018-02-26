@@ -1,5 +1,5 @@
 
-var websocket = new WebSocket("ws:/213.89.13.195:8080/TicTacToe/gameServerEndpoint");
+var websocket = new WebSocket("ws:/localhost:8080/TicTacToe/gameServerEndpoint");
 
 var playerId;
 var currentPlayerMove = 0;
