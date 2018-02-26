@@ -65,7 +65,7 @@ input[type=submit]:hover
 
 #footer {
     margin: auto;
-    width: 80%;
+    width: 50%;
     height: 4vh;
     clear: both !important;
     border-top: 1px solid #cccccc;
