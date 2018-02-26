@@ -50,8 +50,7 @@ input[type=submit]:hover
     text-align: center;
 }
 #navbar a:hover {
-    color: white;
-    background: #365563;
+    background:  #2d4753;
 }
 
 #content {
