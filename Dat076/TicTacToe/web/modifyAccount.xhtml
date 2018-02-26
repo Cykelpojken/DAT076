@@ -10,29 +10,32 @@ and open the template in the editor.
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
-        <title>TODO supply a title</title>
+        <title>TicTacToe</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
         <ui:composition template="./WEB-INF/template.xhtml">
             <ui:define name="content">
-                <h:form>
-                    <h:panelGrid columns="3">
+                <form action="attemptlogin" method="get">
+                    <panelGrid columns="3">
 
-                        <h:outputText value="Username: " />
-                        <h:inputText value="#{users.username}" title="name" id="name" required="true" />
-                        <h:message for="name" style="color:red" />
+                        <outputText value="Username: " />
+                        <input type="text" name="username" placeholder="#{AccountBean.getUser().username}" required="false"/>
+                        
+                        <outputText value="Email: " />
+                        <input type="text" name="email" placeholder="Email" required="false"/>
 
-                        <h:outputText value="Password: " />
-                        <h:inputText value="#{users.password}" title="password" id="password" required="true" />
-                        <h:message for="name" style="color:red" />
+                        <outputText value="Password: " />
+                        <input type="text" name="password" placeholder="Password" required="false"/>
 
-                        <h:commandButton action="dbtest" actionListener="#{accountBean.validateUsernamePassword}" value="submit" />
+                        <input type="submit" value="Submit Changes"></input>
+                        
+                        <br/><div>Don't have an account yet?</div><br/>
+                        <a href="dbtest.xhtml">Create Account</a>
+                        
+                        
 
-                        <br></br> 
-                        <a href="dbtest.xhtml">Account Settings</a>
-
-                    </h:panelGrid>
-                </h:form>
+                    </panelGrid>
+            </form>
             </ui:define>
         </ui:composition>
 </html>

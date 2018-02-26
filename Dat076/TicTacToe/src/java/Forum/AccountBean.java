@@ -61,25 +61,17 @@ public class AccountBean {
       catch(EntityExistsException e){
       e.printStackTrace();}
     }
-    public void validateUsernamePassword(){
-        System.out.println("dsaf");
-        List<Users> l = getList();
-        System.out.println(l.size());
-        for(Users u : l){
-          if(u.getUsername().equals(user.getUsername()) || u.getPassword().equals(user.getPassword()))
-          {
-              try{
-                  System.out.println("dsaf");
-                  editUsername();
-              }
-              catch(Exception e){}
-
-          }
-      }
+    
+    public String getUsername(String username){
+        return getUser(username).getUsername();
     }
-    public void editUsername(){
+    public String getEmail(String username){
+        return getUser(username).getEmail();
+    }
+    public int getRating(){return 0;}
+    /*public void editUsername(){
         Users u = getUser(user.getUsername());
         u.setUsername("kalle");
         
-    }
+    }*/
 }
