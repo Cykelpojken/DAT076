@@ -34,6 +34,6 @@ window.addEventListener('load', function() {
         break;
     default:
         var links = document.getElementsByTagName('a');
-        links[0].style.backrgound = color;
+        links[0].style.background = color;
     }
 })
