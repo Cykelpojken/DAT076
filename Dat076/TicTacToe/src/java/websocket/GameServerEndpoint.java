@@ -138,6 +138,12 @@ public class GameServerEndpoint {
                 handleLeaveGame(userSession);
             }
         }
+        if(data[0].equals("message"))
+        {
+            Iterator<Session> iterator = lobby.iterator();
+            while(iterator.hasNext()) 
+                iterator.next().getBasicRemote().sendText(buildJsonData("message", data[1]));
+        }
     }
     
     public void handleLeaveGame(Session userSession) throws IOException

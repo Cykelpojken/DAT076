@@ -1,5 +1,6 @@
 
-var websocket = new WebSocket("ws:/localhost:8080/TicTacToe/gameServerEndpoint");
+//var websocket = new WebSocket("ws:/localhost:8080/TicTacToe/gameServerEndpoint");
+var websocket = new WebSocket("ws:/213.89.13.195:8080/TicTacToe/gameServerEndpoint");
 
 var playerId;
 var currentPlayerMove = 0;
@@ -11,6 +12,7 @@ var boardElements;
 window.addEventListener('load', function() {
   console.log('All assets are loaded')
   boardElements = document.getElementsByClassName("boardPiece");
+  document.getElementById
   handleInit();
 })
 
@@ -49,6 +51,10 @@ websocket.onmessage = function processMessage(message)
         {
             handleConnectionLoss(data);
         }
+        else if(data[0] === "message")
+        {
+            handleMessage(data);
+        }
     }
 }
 
@@ -57,6 +63,17 @@ function sendMessage(type, message)
     
     //console.log("sending");
     websocket.send(type + ":" + message);
+}
+
+function chatMessage()
+{
+    var message = document.getElementById("messageText").value;
+    console.log(message);
+    if(message.length > 0)
+    {
+        sendMessage("message", message);
+    }
+    document.getElementById("messageText").value = "";
 }
 
 function joinQueue()
@@ -170,5 +187,11 @@ function handleConnectionLoss(data)
         document.getElementById(boardElements[i].id).innerHTML = "";
     }
     handleInit(data);
+}
+
+function handleMessage(data)
+{
+    document.getElementById("messageTextArea").value += data[1] + "\n";
+    console.log(data);
 }
 

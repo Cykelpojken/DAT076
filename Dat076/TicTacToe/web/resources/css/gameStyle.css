@@ -7,6 +7,33 @@ and open the template in the editor.
     Created on : Feb 20, 2018, 4:55:55 PM
     Author     : Arvid
 */
+.chatBox {
+    margin: auto;
+    width: 50vh;
+}
+#messageTextArea {
+    display: block;
+    width: 100%;
+    resize: none;
+    overflow-y: scroll;
+}
+
+#messageText {
+    display: inline-block;
+    float: left;
+    width: 80%;
+    height: 4vh;
+    font-size: 24;
+    overflow-y: scroll;
+}
+
+#chatBtn {
+    display: inline-block;
+    float: right;
+    margin-top: 4px;
+    width: 16%;
+    height: 4vh;
+}
 
 .gameView {
     margin: auto;

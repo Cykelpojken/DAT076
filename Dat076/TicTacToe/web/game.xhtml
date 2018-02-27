@@ -50,6 +50,12 @@
                     </div>
                 </div>
                 
+                <div class="chatBox">
+                    <textarea id="messageTextArea" readonly="readonly" rows="10" cols="45"></textarea>
+                    <input type="text" id="messageText" size="50"/>
+                    <button type="button" id="chatBtn" onclick="chatMessage()">Send</button>
+                </div>
+                
             </ui:define>
         </ui:composition>
     </h:body>
