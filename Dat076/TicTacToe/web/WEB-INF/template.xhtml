@@ -25,7 +25,7 @@
                 <c:set var = "name" scope = "session" value = "#{session.getAttribute('username')}"/>
                 <c:choose>
                     <c:when test="${name != null}">
-                        <form action="/logout" method="get">
+                        <form action="attemptlogout" method="get">
                             <h:outputText styleClass="" value="#{session.getAttribute('username')}"/>
                             <button type="submit">Logout</button>
                         </form>

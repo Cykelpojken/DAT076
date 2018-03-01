@@ -14,6 +14,10 @@
         <servlet-class>Servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>Servlets.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>Servlets.IndexServlet</servlet-class>
     </servlet>
@@ -26,6 +30,10 @@
         <url-pattern>/attemptlogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/attemptlogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/asdasd</url-pattern>
     </servlet-mapping>
@@ -35,6 +43,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
