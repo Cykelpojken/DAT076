@@ -47,6 +47,11 @@ public class AccountBean {
         return (Users)em.createNamedQuery("Users.findByUsername").setParameter("username", name).getSingleResult();
     }
     
+    public Users getUserById(Integer id){
+        System.out.println("ingetuser");
+        return (Users)em.createNamedQuery("Users.findById").setParameter("id", id).getSingleResult();
+    }
+    
     public void create(){
       List<Users> l = getList();
       Users u2 = new Users(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()); 
@@ -68,6 +73,17 @@ public class AccountBean {
     public String getEmail(String username){
         return getUser(username).getEmail();
     }
+    
+    public void modifyAccount(){
+         Users u = getUserById(user.getId());
+         System.out.println(u.getId());
+         u.setUsername(user.getUsername());
+         u.setEmail(user.getEmail());
+         u.setPassword(user.getPassword());
+                 
+
+    }
+    
     public int getRating(){return 0;}
     /*public void editUsername(){
         Users u = getUser(user.getUsername());

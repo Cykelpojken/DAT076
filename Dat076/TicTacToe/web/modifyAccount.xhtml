@@ -8,34 +8,45 @@ and open the template in the editor.
 <html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <title>TicTacToe</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
         <ui:composition template="./WEB-INF/template.xhtml">
             <ui:define name="content">
-                <form action="attemptlogin" method="get">
-                    <panelGrid columns="3">
-
-                        <outputText value="Username: " />
-                        <input type="text" name="username" placeholder="#{AccountBean.getUser().username}" required="false"/>
+                <h:form>
+                    <h:panelGrid columns="3">
                         
-                        <outputText value="Email: " />
-                        <input type="text" name="email" placeholder="Email" required="false"/>
-
-                        <outputText value="Password: " />
-                        <input type="text" name="password" placeholder="Password" required="false"/>
-
-                        <input type="submit" value="Submit Changes"></input>
+                        <h:outputText value="Id " />
+                        <h:inputText  disabled="true" title="id" id="id" value="#{users.id}"/>
+                        <h:message for="id" style="color:red" />
                         
-                        <br/><div>Don't have an account yet?</div><br/>
-                        <a href="dbtest.xhtml">Create Account</a>
-                        
-                        
+                        <h:outputText value="Username " />
+                        <h:inputText title="username" id="username" value="#{users.username}"/>
+                        <h:message for="username" style="color:red" />
 
-                    </panelGrid>
-            </form>
+                        <h:outputText value="Email " />
+                        <h:inputText title="email" id="email" value="#{users.email}"/>
+                        <h:message for="email" style="color:red" />
+
+                        <h:outputText value="Password " />
+                        <h:inputSecret title="password" id="password" />
+                        <h:message for="email" style="color:red" />
+
+                        <h:commandButton action="dbtest" actionListener="#{accountBean.modifyAccount}" value="submit" />
+
+                         
+                        <a href="modifyAccount.xhtml">Account Settings</a>
+
+                    </h:panelGrid>
+
+
+                </h:form>
             </ui:define>
         </ui:composition>
 </html>
+
+
+

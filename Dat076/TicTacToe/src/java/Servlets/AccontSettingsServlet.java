@@ -5,7 +5,6 @@
  */
 package Servlets;
 
-import Forum.AccountBean;
 import Forum.EntityClasses.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,13 +14,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author nils
+ * @author Hugo
  */
-public class LoginServlet extends HttpServlet {
+public class AccontSettingsServlet extends HttpServlet {
 
     @PersistenceContext
     EntityManager em;
@@ -37,33 +35,16 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("username");
-        String pass = request.getParameter("password");
-        try
-        {
-            Users u = getUser(name);
-            if(u.getUsername().equals(name) && u.getPassword().equals(pass)){
-                HttpSession session = request.getSession();
-                session.setAttribute("username", name);
-                
-                response.sendRedirect("index.xhtml");   
-            }
-            else{
-                response.sendRedirect("login.xhtml");
-            }
+        System.out.println("in servlet");
+        try{
+            System.out.println("in servlet");
+        Users u =   getUser((String) request.getSession().getAttribute("username"));
+        //System.out.println(u.getUsername());
+        response.sendRedirect("modifyAccount.xhtml");
         }
-        catch(Exception e)
-        {
-            response.sendRedirect("login.xhtml");
-        }
-        
-        //response.sendRedirect("index.xhtml");
-        
+        catch(Exception e){System.out.println("sadsad");}
     }
-    
-    public Users getUser(String name){
-        return (Users)em.createNamedQuery("Users.findByUsername").setParameter("username", name).getSingleResult();
-    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -75,7 +56,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        System.out.println("in servlet");
+   
+    }
+    
+     public Users getUser(String name){
+        return (Users)em.createNamedQuery("Users.findByUsername").setParameter("username", name).getSingleResult();
     }
 
     /**

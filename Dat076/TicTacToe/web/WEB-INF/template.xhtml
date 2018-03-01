@@ -19,14 +19,14 @@
                 <a href="index.xhtml">Home</a>
                 <a href="game.xhtml">Game</a>
                 <a href="forum.xhtml">Forum</a>
-                <a href="modifyAccount.xhtml">Account</a>
+                <a href="accountsettings">Account</a>
             </div>
             <div id="loginbar">
                 <c:set var = "name" scope = "session" value = "#{session.getAttribute('username')}"/>
                 <c:choose>
                     <c:when test="${name != null}">
                         <form action="attemptlogout" method="get">
-                            <h:outputText styleClass="" value="#{session.getAttribute('username')}"/>
+                            <h:outputText id="username" styleClass="" value="#{session.getAttribute('username')}"/>
                             <button type="submit">Logout</button>
                         </form>
                     </c:when>
