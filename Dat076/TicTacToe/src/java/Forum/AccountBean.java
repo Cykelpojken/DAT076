@@ -74,12 +74,15 @@ public class AccountBean {
         return getUser(username).getEmail();
     }
     
-    public void modifyAccount(){
-         Users u = getUserById(user.getId());
+    public void modifyAccount(int id){
+         Users u = getUserById(id);
          System.out.println(u.getId());
-         u.setUsername(user.getUsername());
-         u.setEmail(user.getEmail());
-         u.setPassword(user.getPassword());
+         if(!(u.getUsername() == null ? user.getUsername() == null : u.getUsername().equals(user.getUsername())))
+            u.setUsername(user.getUsername());
+         if(!(u.getEmail() == null ? user.getEmail() == null : u.getEmail().equals(user.getEmail())))
+            u.setEmail(user.getEmail());
+         if(!(u.getPassword().equals(user.getPassword())) && user.getPassword() != null)
+            u.setPassword(user.getPassword());
                  
 
     }

@@ -19,12 +19,8 @@ and open the template in the editor.
                 <h:form>
                     <h:panelGrid columns="3">
                         
-                        <h:outputText value="Id " />
-                        <h:inputText  disabled="true" title="id" id="id" value="#{users.id}"/>
-                        <h:message for="id" style="color:red" />
-                        
                         <h:outputText value="Username " />
-                        <h:inputText title="username" id="username" value="#{users.username}"/>
+                        <h:inputText  title="username" id="username" value="#{users.username}"/>
                         <h:message for="username" style="color:red" />
 
                         <h:outputText value="Email " />
@@ -34,8 +30,8 @@ and open the template in the editor.
                         <h:outputText value="Password " />
                         <h:inputSecret title="password" id="password" />
                         <h:message for="email" style="color:red" />
-
-                        <h:commandButton action="dbtest" actionListener="#{accountBean.modifyAccount}" value="submit" />
+                        
+                        <h:commandButton action="modifyAccount" actionListener="#{accountBean.modifyAccount(accountBean.getUser(session.getAttribute('username')).getId())}" value="submit" />
 
                          
                         <a href="modifyAccount.xhtml">Account Settings</a>
