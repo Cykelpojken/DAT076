@@ -5,31 +5,22 @@
  */
 package Servlets;
 
-import Forum.AccountBean;
-import Forum.EntityClasses.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author nils
+ * @author Nils
  */
-public class AccontSettingsServlet extends HttpServlet {
+public class CheckIfLoginServlet extends HttpServlet {
 
-    @EJB
-    private AccountBean accountBean;
 
-    @PersistenceContext
-    EntityManager em;
-    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -41,24 +32,12 @@ public class AccontSettingsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("in servlet");
-        try{
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String email = request.getParameter("email");
-            System.out.println(username);
-            System.out.println(password);
-            System.out.println(email);
-            Users u = accountBean.getUser((String)request.getSession().getAttribute("username"));
-            if(username != null && !username.equals("") && !username.equals(u.getUsername())){
-                System.out.println("Changin attribute");
-                request.getSession().setAttribute("username",username);
-            }
-            accountBean.modifyAccount(u.getId(), username, password, email);
+        if(request.getSession().getAttribute("username") != null){ //Checking if user is logged in, if no redirected to create account page
             response.sendRedirect("modifyAccount.xhtml");
         }
-        catch(Exception e){
-            System.out.println("EXCEPTION");}
+        else{
+            response.sendRedirect("login.xhtml");
+        }
     }
 
     /**
@@ -72,13 +51,7 @@ public class AccontSettingsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                System.out.println("in doPost servlet");
-            response.sendRedirect("modifyAccount.xhtml");
-   
-    }
-    
-     public Users getUser(String name){
-        return (Users)em.createNamedQuery("Users.findByUsername").setParameter("username", name).getSingleResult();
+      
     }
 
     /**

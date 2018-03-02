@@ -16,10 +16,11 @@ and open the template in the editor.
     </head>
         <ui:composition template="./WEB-INF/template.xhtml">
             <ui:define name="content">
-                <h:form>
+                <form  action="accountsettings" method="get">
+                    <h:form>
                     <h:panelGrid columns="3">
                         
-                        <h:outputText value="Username " />
+                        <!--<h:outputText value="Username " />
                         <h:inputText  title="username" id="username" value="#{users.username}"/>
                         <h:message for="username" style="color:red" />
 
@@ -29,17 +30,27 @@ and open the template in the editor.
 
                         <h:outputText value="Password " />
                         <h:inputSecret title="password" id="password" value="#{users.password}" />
-                        <h:message for="email" style="color:red" />
+                        <h:message for="email" style="color:red" />-->
                         
-                        <h:commandButton actionListener="#{accountBean.modifyAccount(accountBean.getUser(session.getAttribute('username')).getId())}" value="submit" />
+                        <outputText value="Username: " />
+                        <input type="text" name="username" placeholder="Username"/>
+                        
+                        <outputText value="Email " />
+                        <input type="text" name="email" placeholder="Email"/>
+                        
+                        <outputText value="Password " />
+                        <input type="password" name="password" placeholder="Password"/>
+                        
+                     
+                        <input type="submit" value="Apply Changes"></input>
 
                          
                         <a href="modifyAccount.xhtml">Account Settings</a>
 
                     </h:panelGrid>
 
-
-                </h:form>
+                </h:form>     
+                </form>
             </ui:define>
         </ui:composition>
 </html>

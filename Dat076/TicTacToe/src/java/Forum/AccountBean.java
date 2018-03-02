@@ -75,23 +75,21 @@ public class AccountBean {
         return getUser(username).getEmail();
     }
     
-    public void modifyAccount(int id){
+    public void modifyAccount(int id, String username, String password, String email){
          Users u = getUserById(id);
+         System.out.println("in modifyAccount");
+         System.out.println("Input values: " + username + password + email);
+         System.out.println("From db: " + u.getUsername() + u.getPassword() + u.getEmail());
          
-         if(!(u.getEmail().equals(user.getEmail())) && user.getEmail() != null && !user.getEmail().equals(""))
-            u.setEmail(user.getEmail());
+         if(!(u.getEmail().equals(email)) && email != null && !email.equals(""))
+            u.setEmail(email);
          
-         if(!(u.getPassword().equals(user.getPassword())) && user.getPassword() != null && !user.getPassword().equals(""))
-            u.setPassword(user.getPassword());
+         if(!(u.getPassword().equals(password)) && password != null && !password.equals(""))
+            u.setPassword(password);
          
-         if(!(u.getUsername().equals(user.getUsername())) && user.getUsername() != null && !user.getUsername().equals("")){
-            u.setUsername(user.getUsername());
-            try{
-                System.out.println("Redirecting to servlet");
-                FacesContext.getCurrentInstance().getExternalContext().dispatch("accountsettings");
-            }
-            catch(Exception e){}
-         }
+         if(!(u.getUsername().equals(username))&& username != null && !username.equals(""))
+            u.setUsername(username);
+        
 
     }
     
