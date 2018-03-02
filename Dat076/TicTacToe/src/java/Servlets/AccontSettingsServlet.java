@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Hugo
+ * @author nils
  */
 public class AccontSettingsServlet extends HttpServlet {
 
@@ -37,10 +37,12 @@ public class AccontSettingsServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("in servlet");
         try{
-            System.out.println("in servlet");
-        Users u =   getUser((String) request.getSession().getAttribute("username"));
+            /*if(!request.getSession().equals(null)){
+                request.getSession().setAttribute(name, request);
+            }*/
+        
         //System.out.println(u.getUsername());
-        response.sendRedirect("modifyAccount.xhtml");
+        //response.sendRedirect("modifyAccount.xhtml");
         }
         catch(Exception e){System.out.println("sadsad");}
     }
@@ -56,7 +58,7 @@ public class AccontSettingsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("in servlet");
+        
    
     }
     

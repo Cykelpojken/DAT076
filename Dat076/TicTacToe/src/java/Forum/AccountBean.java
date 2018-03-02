@@ -25,6 +25,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.registry.infomodel.User;
 import oldGame.Game;
+import Servlets.AccontSettingsServlet;
 
 /**
  *
@@ -76,12 +77,22 @@ public class AccountBean {
     
     public void modifyAccount(int id){
          Users u = getUserById(id);
-         System.out.println(u.getId());
-         if(!(u.getUsername() == null ? user.getUsername() == null : u.getUsername().equals(user.getUsername())))
+         System.out.println("DB username: " + u.getUsername());
+         System.out.println("Input username: " + user.getUsername());
+         System.out.println("DB email: " + u.getEmail());
+         System.out.println("Input email: " + user.getEmail());
+         System.out.println("DB password: " + u.getPassword());
+         System.out.println("Input password: " + user.getPassword());
+         if(!(u.getUsername().equals(user.getUsername())) && user.getUsername() != null && !user.getUsername().equals("")){
             u.setUsername(user.getUsername());
-         if(!(u.getEmail() == null ? user.getEmail() == null : u.getEmail().equals(user.getEmail())))
+            try{
+            FacesContext.getCurrentInstance().getExternalContext().dispatch("/accountsettings" + u.getUsername());
+            }
+            catch(Exception e){}
+         }
+         if(!(u.getEmail().equals(user.getEmail())) && user.getEmail() != null && !user.getEmail().equals(""))
             u.setEmail(user.getEmail());
-         if(!(u.getPassword().equals(user.getPassword())) && user.getPassword() != null)
+         if(!(u.getPassword().equals(user.getPassword())) && user.getPassword() != null && !user.getPassword().equals(""))
             u.setPassword(user.getPassword());
                  
 
