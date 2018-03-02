@@ -1,0 +1,25 @@
+
+/* 
+    Created on : 2018-mar-01, 19:41:51
+    Author     : Arvid
+*/
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 1vh;
+}
+
+tr:nth-child(even){
+    background-color: #ffffff
+}
+
+th {
+    background-color: #365563;
+    color: white;
+}
