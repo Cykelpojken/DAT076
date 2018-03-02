@@ -44,8 +44,7 @@ public class LoginServlet extends HttpServlet {
             Users u = getUser(name);
             if(u.getUsername().equals(name) && u.getPassword().equals(pass)){
                 HttpSession session = request.getSession();
-                session.setAttribute("username", name);
-                
+                session.setAttribute("username", name);                
                 response.sendRedirect("index.xhtml");   
             }
             else{

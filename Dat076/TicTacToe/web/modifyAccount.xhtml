@@ -31,7 +31,7 @@ and open the template in the editor.
                         <h:inputSecret title="password" id="password" value="#{users.password}" />
                         <h:message for="email" style="color:red" />
                         
-                        <h:commandButton action="accountsettings" actionListener="#{accountBean.modifyAccount(accountBean.getUser(session.getAttribute('username')).getId())}" value="submit" />
+                        <h:commandButton actionListener="#{accountBean.modifyAccount(accountBean.getUser(session.getAttribute('username')).getId())}" value="submit" />
 
                          
                         <a href="modifyAccount.xhtml">Account Settings</a>

@@ -37,14 +37,15 @@ public class AccontSettingsServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("in servlet");
         try{
-            /*if(!request.getSession().equals(null)){
-                request.getSession().setAttribute(name, request);
-            }*/
-        
-        //System.out.println(u.getUsername());
-        //response.sendRedirect("modifyAccount.xhtml");
+           
+            if(request.getSession().getAttribute("username") != null){ //Checking if user is logged in, if no redirected to create account page
+                response.sendRedirect("modifyAccount.xhtml");
+            }
+            else{
+                response.sendRedirect("login.xhtml");
+            }
         }
-        catch(Exception e){System.out.println("sadsad");}
+        catch(Exception e){}
     }
 
     /**
@@ -58,7 +59,8 @@ public class AccontSettingsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+                System.out.println("in doPost servlet");
+            response.sendRedirect("modifyAccount.xhtml");
    
     }
     
