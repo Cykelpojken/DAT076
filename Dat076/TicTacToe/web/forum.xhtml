@@ -3,14 +3,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+        <title>TicTacToe</title>
+    </head>
     <body>
 
         <ui:composition template="./WEB-INF/template.xhtml">
             <ui:define name="content">
                 <h:outputStylesheet library="css" name="forumStyle.css" />
-                This is the forum:
+                
+                <c:set var = "name" scope = "session" value = "#{session.getAttribute('username')}"/>
+                <c:choose>
+                    <c:when test="${name != null}">
+                        <div class="createThread">
+                            <h:form>
+                                <h:outputText value="Title: " />
+                                <h:inputText value="#{thread.title}" title="title" id="title" required="true" a:maxlength="45"/>
+
+                                <h:outputText value="Descrition: " />
+                                <h:inputTextarea value="#{thread.text}" title="text" id="text" required="true" rows="4" cols="50" a:maxlength="250"/>
+
+                                <h:commandButton action="forum" actionListener="#{threadBean.create}" value="Create thread" />
+                            </h:form>
+                        </div>
+                    </c:when>
+                </c:choose>
                 <table>
                     <tr>
                       <th>Title</th>
@@ -18,30 +37,14 @@
                       <th>Date</th>
                       <th>Posts</th>
                     </tr>
-                    <tr onclick="document.location = 'forumthread?id=' + this.getElementsByTagName('td')[0].innerHTML">
-                      <td>Peter</td>
-                      <td>Griffin</td>
-                      <td>$100</td>
-                      <td>5</td>
-                    </tr>
-                    <tr>
-                      <td>Lois</td>
-                      <td>Griffin</td>
-                      <td>$150</td>
-                      <td>30</td>
-                    </tr>
-                    <tr>
-                      <td>Joe</td>
-                      <td>Swanson</td>
-                      <td>$300</td>
-                      <td>20</td>
-                    </tr>
-                    <tr>
-                      <td>Cleveland</td>
-                      <td>Brown</td>
-                      <td>$250</td>
-                      <td>10</td>
-                    </tr>
+                    <c:forEach items="#{threadBean.getList()}" var="thread">
+                        <tr onclick="document.location = 'forumthread?id=' + this.getElementsByTagName('td')[0].innerHTML">
+                            <td>#{thread.getTitle()}</td>
+                            <td>#{thread.getThreadViewText()}</td>
+                            <td>#{thread.getSimpleDate()}</td>
+                            <td>#{thread.getPosts()}</td>
+                        </tr>
+                    </c:forEach> 
                 </table>
             </ui:define>
 

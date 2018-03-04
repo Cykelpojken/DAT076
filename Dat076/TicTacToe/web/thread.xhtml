@@ -3,14 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
-    <body class="home">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <head>
+        <title>TicTacToe</title>
+    </head>
+    <body>
 
         <ui:composition template="./WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                <h:outputText value="#{session.getAttribute('username')}"/>
+                <h:outputStylesheet library="css" name="forumStyle.css" />
+                <c:set var = "threadName" value = "#{request.getParameter('id')}"/>
+                <div class="threadHeader">
+                    <h1>${threadName}</h1>
+                    <p>#{threadBean.getThread(request.getParameter('id')).getText()}</p>
+                </div>
+                <c:set var = "name" scope = "session" value = "#{session.getAttribute('username')}"/>
+                <c:choose>
+                    <c:when test="${name != null}">
+                        <div class="createThread">
+                            <h:form>
+                                <h:outputText value="Text " />
+                                <h:inputTextarea value="#{posts.text}" title="text" id="text" required="true" rows="4" cols="50" a:maxlength="250"/>
+
+                                <h:commandButton actionListener="#{postBean.create}" value="Create post">
+                                    <f:param id="threadId" name="threadId" value="#{request.getParameter('id')}"/>
+                                    <f:param id="creator" name="creator" value="#{session.getAttribute('username')}"/>
+                                </h:commandButton>
+                            </h:form>
+                        </div>
+                    </c:when>
+                </c:choose>
+                <c:forEach items="#{postBean.getThreadList(threadName)}" var="post">
+                    <div class="threadPost">
+                        <p>#{post.getPostsPK().getPostNr()}</p>
+                        <p>#{post.getPostsPK().getThread()}</p>
+                        <p>#{post.getCreater()}</p>
+                        <p>#{post.getText()}</p>
+                    </div>
+                </c:forEach> 
             </ui:define>
 
         </ui:composition>

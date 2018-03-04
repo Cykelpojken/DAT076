@@ -32,9 +32,7 @@ public class ForumServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String s = (String)request.getParameter("id");
-        System.out.println(s);
         request.getRequestDispatcher("thread.xhtml").forward(request, response);
-        //response.sendRedirect("thread.xhtml");
     }
 
     /**

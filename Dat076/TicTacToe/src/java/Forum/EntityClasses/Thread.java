@@ -6,7 +6,10 @@
 package Forum.EntityClasses;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Arvid
  */
+@Named
+@RequestScoped
 @Entity
 @Table(name = "THREAD")
 @XmlRootElement
@@ -65,7 +70,8 @@ public class Thread implements Serializable {
     public Thread(String title, String text) {
         this.title = title;
         this.text = text;
-        this.date = date;
+        this.date = new Date();
+        this.posts = 0;
     }
 
     public String getTitle() {
@@ -79,6 +85,15 @@ public class Thread implements Serializable {
     public String getText() {
         return text;
     }
+    
+    public String getThreadViewText() {
+        String s = text.substring(0, Math.min(text.length(), 40));
+        if(text.length() > 40)
+        {
+            s += "...";
+        }
+        return s;
+    }
 
     public void setText(String text) {
         this.text = text;
@@ -86,6 +101,11 @@ public class Thread implements Serializable {
 
     public Date getDate() {
         return date;
+    }
+    
+    public String getSimpleDate() {
+        SimpleDateFormat ft = new SimpleDateFormat("MM-dd-YYYY");
+        return ft.format(date);
     }
 
     public void setDate(Date date) {
@@ -109,7 +129,6 @@ public class Thread implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Thread)) {
             return false;
         }
@@ -122,7 +141,7 @@ public class Thread implements Serializable {
 
     @Override
     public String toString() {
-        return "Forum.Thread[ title=" + title + " ]";
+        return "Forum.Thread[ title=" + title + "text=" + text + " ]";
     }
     
 }

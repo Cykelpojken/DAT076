@@ -6,53 +6,71 @@
 package Forum.EntityClasses;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.Date;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author nils
+ * @author Arvid
  */
+@Named
+@RequestScoped
 @Entity
 @Table(name = "POSTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Posts.findAll", query = "SELECT p FROM Posts p")
-    , @NamedQuery(name = "Posts.findById", query = "SELECT p FROM Posts p WHERE p.id = :id")
-    , @NamedQuery(name = "Posts.findByText", query = "SELECT p FROM Posts p WHERE p.text = :text")})
+    , @NamedQuery(name = "Posts.findByThread", query = "SELECT p FROM Posts p WHERE p.postsPK.thread = :thread")
+    , @NamedQuery(name = "Posts.findByPostNr", query = "SELECT p FROM Posts p WHERE p.postsPK.postNr = :postNr")
+    , @NamedQuery(name = "Posts.findByText", query = "SELECT p FROM Posts p WHERE p.text = :text")
+    , @NamedQuery(name = "Posts.findByDate", query = "SELECT p FROM Posts p WHERE p.date = :date")
+    , @NamedQuery(name = "Posts.findByCreater", query = "SELECT p FROM Posts p WHERE p.creater = :creater")})
 public class Posts implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID")
-    private Integer id;
-    @Size(max = 1024)
+    @EmbeddedId
+    protected PostsPK postsPK;
+    @Size(max = 250)
     @Column(name = "TEXT")
     private String text;
+    @Column(name = "DATE")
+    @Temporal(TemporalType.DATE)
+    private Date date;
+    @Size(max = 45)
+    @Column(name = "CREATER")
+    private String creater;
 
     public Posts() {
     }
 
-    public Posts(Integer id) {
-        this.id = id;
+    public Posts(PostsPK postsPK) {
+        this.postsPK = postsPK;
     }
 
-    public Integer getId() {
-        return id;
+    public Posts(String thread, int postNr, String text, String creater) {
+        this.postsPK = new PostsPK(thread, postNr);
+        this.text = text;
+        this.date = new Date();
+        this.creater = creater;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public PostsPK getPostsPK() {
+        return postsPK;
+    }
+
+    public void setPostsPK(PostsPK postsPK) {
+        this.postsPK = postsPK;
     }
 
     public String getText() {
@@ -63,10 +81,26 @@ public class Posts implements Serializable {
         this.text = text;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (postsPK != null ? postsPK.hashCode() : 0);
         return hash;
     }
 
@@ -77,7 +111,7 @@ public class Posts implements Serializable {
             return false;
         }
         Posts other = (Posts) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.postsPK == null && other.postsPK != null) || (this.postsPK != null && !this.postsPK.equals(other.postsPK))) {
             return false;
         }
         return true;
@@ -85,7 +119,7 @@ public class Posts implements Serializable {
 
     @Override
     public String toString() {
-        return "Forum.EntityClasses.Posts[ id=" + id + " ]";
+        return "Forum.EntityClasses.Posts[ postsPK=" + postsPK + " ]";
     }
     
 }

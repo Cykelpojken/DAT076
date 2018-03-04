@@ -20,8 +20,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author Arvid
  */
-@Named
 @Stateless
+@Named
 public class ThreadBean {
 
     private static final Logger LOG = Logger.getLogger(ThreadBean.class.getName());
@@ -39,15 +39,15 @@ public class ThreadBean {
     }
     
     public void create(){
+        System.out.println(thread.toString());
         List<Thread> l = getList();
-        Thread t2 = new Thread(thread.getTitle(), thread.getText()); 
+        Thread dummy = new Thread(thread.getTitle(), thread.getText());
         for(Thread t : l){
-            if(Objects.equals(t.getTitle(), t2.getTitle())){
+            if(dummy.equals(t))
                 return;
-            } 
         }
         try{
-            em.persist(t2);
+            em.persist(dummy);
         }
         catch(EntityExistsException e){
         e.printStackTrace();}
