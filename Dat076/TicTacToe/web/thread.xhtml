@@ -15,7 +15,7 @@
         <ui:composition template="./WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                <h:outputStylesheet library="css" name="forumStyle.css" />
+                <h:outputStylesheet library="css" name="postStyle.css" />
                 <c:set var = "threadName" value = "#{request.getParameter('id')}"/>
                 <div class="threadHeader">
                     <h1>${threadName}</h1>
@@ -39,11 +39,31 @@
                 </c:choose>
                 <c:forEach items="#{postBean.getThreadList(threadName)}" var="post">
                     <div class="threadPost">
-                        <p>#{post.getPostsPK().getPostNr()}</p>
-                        <p>#{post.getPostsPK().getThread()}</p>
-                        <p>#{post.getCreater()}</p>
-                        <p>#{post.getSimpleDate()}</p>
-                        <p>#{post.getText()}</p>
+                        <table>
+                            <tr>
+                                <td class="threadPostInfo">
+                                    <p>Post nr. #{post.getPostsPK().getPostNr()}</p>
+                                    <p>User: #{post.getCreater()}</p>
+                                    <p>Date: #{post.getSimpleDate()}</p>
+                                </td>
+                                <td class="threadPostText">
+                                    <p>
+                                        #{post.getText()}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="#{session.getAttribute('username') == post.getCreater()}">
+                                            <button>Edit</button>
+                                            <button>Delete</button>
+                                        </c:when>
+                                    </c:choose>
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </div>
                 </c:forEach> 
             </ui:define>

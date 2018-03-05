@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 5, 2018, 9:13:03 PM
+    Author     : Arvid
+*/
+table {
+    border-collapse: collapse;
+    padding: 20px;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 1vh;
+}
+
+.threadPost {
+    margin: auto;
+    margin-bottom: 2vh;
+    width: 70%;
+    height-min: 20vh;
+    background: #e6e6e6;
+    dislay: table;
+    border-radius: 2vh;
+}
+
+.threadPostInfo {
+    width: 30%;
+}
+
+.threadPostText p{
+    background: #ffffff;
+    height: 18vh;
+    padding: 2vh;
+}
