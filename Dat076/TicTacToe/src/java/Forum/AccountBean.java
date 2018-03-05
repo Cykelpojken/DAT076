@@ -26,6 +26,7 @@ import javax.persistence.PersistenceContext;
 import javax.xml.registry.infomodel.User;
 import oldGame.Game;
 import Servlets.AccontSettingsServlet;
+import Servlets.LogoutServlet;
 
 /**
  *
@@ -49,7 +50,6 @@ public class AccountBean {
     }
     
     public Users getUserById(Integer id){
-        System.out.println("ingetuser");
         return (Users)em.createNamedQuery("Users.findById").setParameter("id", id).getSingleResult();
     }
     
@@ -77,9 +77,6 @@ public class AccountBean {
     
     public void modifyAccount(int id, String username, String password, String email){
          Users u = getUserById(id);
-         System.out.println("in modifyAccount");
-         System.out.println("Input values: " + username + password + email);
-         System.out.println("From db: " + u.getUsername() + u.getPassword() + u.getEmail());
          
          if(!(u.getEmail().equals(email)) && email != null && !email.equals(""))
             u.setEmail(email);
@@ -91,6 +88,15 @@ public class AccountBean {
             u.setUsername(username);
         
 
+    }
+    
+    public int deleteAccount(String username, String password){
+        Users u = getUser(username);
+        if(u.getPassword().equals(password)){
+            em.remove(u);
+            return 0;
+        }
+        return 1;
     }
     
     public int getRating(){return 0;}

@@ -33,7 +33,7 @@ public class CheckIfLoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if(request.getSession().getAttribute("username") != null){ //Checking if user is logged in, if no redirected to create account page
-            response.sendRedirect("modifyAccount.xhtml");
+            response.sendRedirect("Account.xhtml");
         }
         else{
             response.sendRedirect("login.xhtml");

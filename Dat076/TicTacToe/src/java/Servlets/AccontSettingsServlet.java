@@ -41,14 +41,11 @@ public class AccontSettingsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("in servlet");
+        
         try{
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
-            System.out.println(username);
-            System.out.println(password);
-            System.out.println(email);
             Users u = accountBean.getUser((String)request.getSession().getAttribute("username"));
             if(username != null && !username.equals("") && !username.equals(u.getUsername())){
                 System.out.println("Changin attribute");

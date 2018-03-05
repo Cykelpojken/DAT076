@@ -5,8 +5,10 @@
  */
 package Servlets;
 
+import Forum.AccountBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LogoutServlet extends HttpServlet {
 
+    @EJB
+    private AccountBean accountBean;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -31,8 +35,19 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String s = (String)request.getParameter("password");
+        if(s != null){
+            int i = accountBean.deleteAccount((String)request.getSession().getAttribute("username"), s);
+            if(i == 1){
+                response.sendRedirect("index.xhtml");
+            }
+            request.getSession().invalidate();
+            response.sendRedirect("index.xhtml");
+        }
+        else{
         request.getSession().invalidate();
         response.sendRedirect("index.xhtml");
+        }
     }
 
     /**
