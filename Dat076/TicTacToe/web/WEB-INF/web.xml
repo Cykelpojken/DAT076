@@ -22,8 +22,8 @@
         <servlet-class>Servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>IndexServlet</servlet-name>
-        <servlet-class>Servlets.IndexServlet</servlet-class>
+        <servlet-name>ForumServlet</servlet-name>
+        <servlet-class>Servlets.ForumServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CheckIfLoginServlet</servlet-name>
@@ -46,8 +46,8 @@
         <url-pattern>/attemptlogout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>IndexServlet</servlet-name>
-        <url-pattern>/asdasd</url-pattern>
+        <servlet-name>ForumServlet</servlet-name>
+        <url-pattern>/forumthread</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CheckIfLoginServlet</servlet-name>

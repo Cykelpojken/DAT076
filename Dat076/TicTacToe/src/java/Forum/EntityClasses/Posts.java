@@ -6,6 +6,7 @@
 package Forum.EntityClasses;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -83,6 +84,11 @@ public class Posts implements Serializable {
 
     public Date getDate() {
         return date;
+    }
+    
+    public String getSimpleDate() {
+        SimpleDateFormat ft = new SimpleDateFormat("MM-dd-YYYY");
+        return ft.format(date);
     }
 
     public void setDate(Date date) {

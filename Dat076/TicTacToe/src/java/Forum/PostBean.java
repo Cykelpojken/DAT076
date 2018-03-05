@@ -82,8 +82,9 @@ public class PostBean {
         System.out.println(dummy.toString() + dummy.getCreater() + dummy.getText());
         try{
             em.persist(dummy);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("forumthread?id=" + thread);
         }
-        catch(EntityExistsException e){
+        catch(Exception e){
         e.printStackTrace();}
         
     }
