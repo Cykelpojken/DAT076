@@ -53,6 +53,10 @@
         <servlet-name>CheckIfLoginServlet</servlet-name>
         <url-pattern>/CheckIfLoginServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckIfLoginServlet</servlet-name>
+        <url-pattern>/playgame</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
