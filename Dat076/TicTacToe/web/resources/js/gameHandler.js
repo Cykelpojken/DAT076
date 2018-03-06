@@ -55,6 +55,10 @@ websocket.onmessage = function processMessage(message)
         {
             handleMessage(data);
         }
+        else if(data[0] === "name")
+        {
+            handleName(data);
+        }
     }
 }
 
@@ -126,9 +130,14 @@ function handleQueue(data)
     statusText.innerHTML = "Waiting...";
 }
 
+function handleName(data)
+{
+    console.log(document.getElementById('username').innerHTML);
+    sendMessage("name", document.getElementById('username').innerHTML);
+}
+
 function handleInit(data)
 {
-    playerIdText.innerHTML = "Press find game to search for an opponent.";
 }
 
 function handleStart(data)
@@ -191,7 +200,7 @@ function handleConnectionLoss(data)
 
 function handleMessage(data)
 {
-    document.getElementById("messageTextArea").value += data[1] + "\n";
+    document.getElementById("messageTextArea").value += data[1] + ": " + data[2] + "\n";
     console.log(data);
 }
 

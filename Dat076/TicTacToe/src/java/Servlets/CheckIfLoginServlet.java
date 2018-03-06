@@ -32,8 +32,11 @@ public class CheckIfLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession().getAttribute("username") != null){ //Checking if user is logged in, if no redirected to create account page
-            response.sendRedirect("Account.xhtml");
+        if(request.getSession().getAttribute("username") != null){ //Checking if user is logged in, if no redirected to create account page         
+            System.out.println(request.getRequestURL());
+            String url = request.getRequestURI().replace("/TicTacToe/", "");
+            if(url.equals("playgame"))
+                response.sendRedirect("game.xhtml");
         }
         else{
             response.sendRedirect("login.xhtml");

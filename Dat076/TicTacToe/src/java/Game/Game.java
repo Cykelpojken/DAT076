@@ -69,10 +69,6 @@ public class Game {
     
     public int checkBoard()
     {
-        if(checkTie())
-        {
-            return 3;
-        }
         int x = checkCross();
         if(x != 0)
         {
@@ -88,10 +84,16 @@ public class Game {
         {
             return l;
         }
+        if(checkTie())
+        {
+            return 3;
+        }
         return 0;
+        
     }
     
     private int checkRows(){
+
         for(int i = 1; i < board.size(); i += 3)
         {
             

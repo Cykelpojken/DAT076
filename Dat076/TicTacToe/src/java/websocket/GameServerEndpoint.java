@@ -43,6 +43,7 @@ public class GameServerEndpoint {
     {
         lobby.add(userSession);
         userSession.getUserProperties().put("status", "lobby");
+        notifyPlayer("name", "", userSession);
     }
     
     public void notifyPlayer(String type, String message, Session user) throws IOException
@@ -142,7 +143,14 @@ public class GameServerEndpoint {
         {
             Iterator<Session> iterator = lobby.iterator();
             while(iterator.hasNext()) 
-                iterator.next().getBasicRemote().sendText(buildJsonData("message", data[1]));
+            {
+                System.out.println(userSession.getUserProperties().get("username") + ":" + data[1]);
+                iterator.next().getBasicRemote().sendText(buildJsonData("message", userSession.getUserProperties().get("username") + ":" + data[1]));
+            }
+        }
+        if(data[0].equals("name"))
+        {
+            userSession.getUserProperties().put("username", data[1]);
         }
     }
     
