@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Named;
 import Forum.EntityClasses.Posts;
 import Forum.EntityClasses.PostsPK;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,12 +58,21 @@ public class PostBean {
         return (Posts)em.createNamedQuery("Posts.findByPK").setParameter("postsPK", new PostsPK(name, post_nr)).getSingleResult();
     }
     
+    public int getPostNrKey(List<Posts> threadPosts)
+    {
+        int max = 0;
+        for(Posts p : threadPosts)
+        {
+            if(p.getPostsPK().getPostNr() > max)
+                max = p.getPostsPK().getPostNr();
+        }
+        return max + 1;
+    }
+    
     public void create(){
         String thread = (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("threadId"));
         posts.setCreater(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("creator"));
         List<Posts> l = getList();
-        
-        System.out.println(posts.getCreater());
         
         List<Posts> threadPosts = new ArrayList<>();
         
@@ -73,7 +83,7 @@ public class PostBean {
                 threadPosts.add(p);
             }
         }
-        int post_nr = threadPosts.size() + 1;
+        int post_nr = getPostNrKey(threadPosts);
         Posts dummy = new Posts(thread, post_nr, posts.getText(), posts.getCreater());
         for(Posts p : threadPosts){
             if(dummy.equals(p))
@@ -87,5 +97,44 @@ public class PostBean {
         catch(Exception e){
         e.printStackTrace();}
         
+    }
+    
+    public String update(String thread, int nr, String text){
+        List<Posts> l = getList();
+        Posts dummy = new Posts(thread, nr, "", "");
+        try{
+            for(Posts p : l)
+            {
+                if(dummy.equals(p))
+                {
+                    p.setText(text);
+                    p.setDate();
+                    p.setModified();
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("catch");
+        }
+        return thread;
+    }
+    public String delete(String thread, int nr){
+        List<Posts> l = getList();
+        Posts dummy = new Posts(thread, nr, "", "");
+        try{
+            for(Posts p : l)
+            {
+                if(dummy.equals(p))
+                {
+                    em.remove(p);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("catch");
+        }
+        return thread;
     }
 }

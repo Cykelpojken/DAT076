@@ -26,6 +26,10 @@
         <servlet-class>Servlets.ForumServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>Servlets.PostServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CheckIfLoginServlet</servlet-name>
         <servlet-class>Servlets.CheckIfLoginServlet</servlet-class>
     </servlet>
@@ -48,6 +52,14 @@
     <servlet-mapping>
         <servlet-name>ForumServlet</servlet-name>
         <url-pattern>/forumthread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/deletepost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/updatepost</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CheckIfLoginServlet</servlet-name>

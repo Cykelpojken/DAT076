@@ -39,7 +39,6 @@ public class ThreadBean {
     }
     
     public void create(){
-        System.out.println(thread.toString());
         List<Thread> l = getList();
         Thread dummy = new Thread(thread.getTitle(), thread.getText());
         for(Thread t : l){
@@ -50,7 +49,8 @@ public class ThreadBean {
             em.persist(dummy);
         }
         catch(EntityExistsException e){
-        e.printStackTrace();}
+            e.printStackTrace();
+        }
     }
     
     public String getTitle(String title){

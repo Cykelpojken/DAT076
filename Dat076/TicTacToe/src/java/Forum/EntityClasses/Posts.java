@@ -51,6 +51,16 @@ public class Posts implements Serializable {
     @Size(max = 45)
     @Column(name = "CREATER")
     private String creater;
+    @Column(name = "MODIFIED")
+    private boolean modified;
+
+    public boolean isModified() {
+        return modified;
+    }
+
+    public void setModified() {
+        this.modified = true;
+    }
 
     public Posts() {
     }
@@ -64,6 +74,7 @@ public class Posts implements Serializable {
         this.text = text;
         this.date = new Date();
         this.creater = creater;
+        this.modified = false;
     }
 
     public PostsPK getPostsPK() {
@@ -91,8 +102,8 @@ public class Posts implements Serializable {
         return ft.format(date);
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = new Date();
     }
 
     public String getCreater() {

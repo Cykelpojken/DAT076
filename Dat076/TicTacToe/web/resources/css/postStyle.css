@@ -9,7 +9,6 @@ and open the template in the editor.
 */
 table {
     border-collapse: collapse;
-    padding: 20px;
     width: 100%;
 }
 
@@ -18,22 +17,51 @@ th, td {
     padding: 1vh;
 }
 
-.threadPost {
+textarea{
+    background: #ffffff;
+    resize: none;
+    height: 14vh;
+    width: 100%;
+}
+
+input[type=submit]{
+    padding: 1px;
+    margin: 0.2vh;
+}
+.threadHeader {
     margin: auto;
+    padding: 1vh;
     margin-bottom: 2vh;
     width: 70%;
-    height-min: 20vh;
+    height-min: 10vh;
     background: #e6e6e6;
     dislay: table;
-    border-radius: 2vh;
+    border-radius: 1vh;
+}
+
+.createThread {
+    margin: auto;
+    padding: 1vh;
+    margin-bottom: 2vh;
+    width: 70%;
+    height-min: 10vh;
+    background: #e6e6e6;
+    dislay: table;
+    border-radius: 1vh;
+}
+
+.threadPost {
+    margin: auto;
+    padding: 1vh;
+    margin-bottom: 2vh;
+    width: 70%;
+    height-min: 10vh;
+    background: #e6e6e6;
+    dislay: table;
+    border-radius: 1vh;
 }
 
 .threadPostInfo {
     width: 30%;
 }
 
-.threadPostText p{
-    background: #ffffff;
-    height: 18vh;
-    padding: 2vh;
-}

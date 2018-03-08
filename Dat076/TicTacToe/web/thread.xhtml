@@ -16,6 +16,7 @@
 
             <ui:define name="content">
                 <h:outputStylesheet library="css" name="postStyle.css" />
+                <h:outputScript library="js" name="postHandler.js" />
                 <c:set var = "threadName" value = "#{request.getParameter('id')}"/>
                 <div class="threadHeader">
                     <h1>${threadName}</h1>
@@ -42,22 +43,31 @@
                         <table>
                             <tr>
                                 <td class="threadPostInfo">
-                                    <p>Post nr. #{post.getPostsPK().getPostNr()}</p>
+                                    <p>Post nr:#{post.getPostsPK().getPostNr()}</p>
                                     <p>User: #{post.getCreater()}</p>
-                                    <p>Date: #{post.getSimpleDate()}</p>
+                                    <c:choose>
+                                        <c:when test="#{post.isModified()}">
+                                            <p>Last Modified:<br></br>#{post.getSimpleDate()}</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p>Date:#{post.getSimpleDate()}</p>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                                 <td class="threadPostText">
-                                    <p>
-                                        #{post.getText()}
-                                    </p>
+                                    <div>
+                                        <textarea a:maxlength="250" readonly="true">#{post.getText()}</textarea>
+                                        <input style="visibility:hidden;" onclick="document.location = 'updatepost?id=#{post.getPostsPK().getThread()}&amp;nr=#{post.getPostsPK().getPostNr()}&amp;text=' + getText(this)" type="submit" value="Submit"></input>
+                                    </div>
+                                        
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <c:choose>
                                         <c:when test="#{session.getAttribute('username') == post.getCreater()}">
-                                            <button>Edit</button>
-                                            <button>Delete</button>
+                                            <input type="submit" class="editButton" onclick="editableText(this)" value="Edit"></input>
+                                            <input onclick="document.location = 'deletepost?id=#{post.getPostsPK().getThread()}&amp;nr=#{post.getPostsPK().getPostNr()}'" type="submit" value="Delete"></input>
                                         </c:when>
                                     </c:choose>
                                 </td>

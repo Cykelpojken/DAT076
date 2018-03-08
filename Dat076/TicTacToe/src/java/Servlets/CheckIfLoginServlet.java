@@ -35,6 +35,8 @@ public class CheckIfLoginServlet extends HttpServlet {
         if(request.getSession().getAttribute("username") != null){ //Checking if user is logged in, if no redirected to create account page         
             System.out.println(request.getRequestURL());
             String url = request.getRequestURI().replace("/TicTacToe/", "");
+            if(url.equals("CheckIfLoginServlet"))
+                response.sendRedirect("modifyAccount.xhtml");
             if(url.equals("playgame"))
                 response.sendRedirect("game.xhtml");
         }
