@@ -36,7 +36,7 @@ public class CheckIfLoginServlet extends HttpServlet {
             System.out.println(request.getRequestURL());
             String url = request.getRequestURI().replace("/TicTacToe/", "");
             if(url.equals("CheckIfLoginServlet"))
-                response.sendRedirect("modifyAccount.xhtml");
+                response.sendRedirect("Account.xhtml");
             if(url.equals("playgame"))
                 response.sendRedirect("game.xhtml");
         }
