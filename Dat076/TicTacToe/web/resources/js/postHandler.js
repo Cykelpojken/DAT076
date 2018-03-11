@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 var edits = [];
+var id;
+var text;
+var submit;
 
 function editableText(element)
 {
@@ -16,23 +19,49 @@ function editableText(element)
 
 function startEdit(element) {
     element.value = "Cancel";
-    edits.push({id: element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[0], text: element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[0].value});
-    element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[0].removeAttribute('readonly');
-    element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[1].style = "visibility:visible";
+    var e = element.parentNode.parentNode.parentNode.children[0].children[1].children[0];
+    for(var i = 0; i < e.children.length; i++){
+        if(!(e.children[i].value === "Submit")){
+             id = e.children[i];
+            text = e.children[i].value;
+        }
+         else if(e.children[i].value === "Submit"){
+            submit = e.children[i];
+        }
+
+    }
+    edits.push({id: id, text: text});
+    id.removeAttribute('readonly');
+    submit.style = "visibility:visible";
+  
 }
 
 function cancelEdit(element) {
     element.value = "Edit";
+    
+    var e = element.parentNode.parentNode.parentNode.children[0].children[1].children[0];
+   
+    for(var i = 0; i < e.children.length; i++){
+        if(!(e.children[i].value === "Submit")){
+             id = e.children[i];
+            text = e.children[i].value;
+        }
+        else if(e.children[i].value === "Submit"){
+            submit = e.children[i];
+        }
+        
+    }
+    
     for(var i = 0; i < edits.length; i++)
     {
-        if(element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[0] === edits[i].id)
+        if(id === edits[i].id)
         {
-            element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[0].value = edits[i].text;
+            id.value = edits[i].text;
             edits.splice(i, 1);
         }
     }
-    element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[0].setAttribute('readonly', '');
-    element.parentNode.parentNode.parentNode.children[0].children[1].children[0].children[1].style = "visibility:hidden";
+    id.setAttribute('readonly', '');
+    submit.style = "visibility:hidden";
 }
 
 function getText(element)
