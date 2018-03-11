@@ -24,7 +24,6 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.registry.infomodel.User;
-import oldGame.Game;
 import Servlets.AccontSettingsServlet;
 import Servlets.LogoutServlet;
 
@@ -36,24 +35,45 @@ import Servlets.LogoutServlet;
 @Named
 public class AccountBean {
     private static final Logger LOG = Logger.getLogger(AccountBean.class.getName());
+    
     @PersistenceContext
     EntityManager em;
     
     @Inject Users user;
 
+    /**
+    * Returns a list of all users in the database
+    * @return Returns a list of all users in the database
+    */
+    
     public List getList(){
         return em.createNamedQuery("Users.findAll").getResultList();
     }
     
+    /**
+    * Returns a user based on the given username
+    * @param  name the username to search for
+    * @return the user correlating to that username in the database
+    */
     public Users getUser(String name){
         return (Users)em.createNamedQuery("Users.findByUsername").setParameter("username", name).getSingleResult();
     }
     
+    /**
+    * Returns a user based on the given id
+    * @param  id the id to search for
+    * @return the user correlating to that id in the database
+    */
     public Users getUserById(Integer id){
         return (Users)em.createNamedQuery("Users.findById").setParameter("id", id).getSingleResult();
     }
     
-    public void create(){
+    /**
+    * Creates a new user and adds it to the database. 
+    * A new user is not created if any of the unique attributes or the key is duplicate
+    *
+    */
+    public void create(){ 
       List<Users> l = getList();
       Users u2 = new Users(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()); 
       for(Users u : l){
@@ -68,12 +88,32 @@ public class AccountBean {
       e.printStackTrace();}
     }
     
+     /**
+    * Returns a username based on an input-value username
+    * @param  username the username to search for
+    * @return the username correlating to that username in the database
+    */
+    
     public String getUsername(String username){
         return getUser(username).getUsername();
     }
+     /**
+    * Returns an email based on an input-value username
+    * @param  username the username to search for
+    * @return the email correlating to that username in the database
+    */
+    
     public String getEmail(String username){
         return getUser(username).getEmail();
     }
+    
+     /**
+    * Modifies the account, whos primary key is that of the parameter id
+    * @param  id the id to search for in the database
+    * @param  username the potentially modified username 
+    * @param  password the potentially modified password 
+    * @param  email the potentially modified email 
+    */
     
     public void modifyAccount(int id, String username, String password, String email){
          Users u = getUserById(id);
@@ -86,9 +126,15 @@ public class AccountBean {
          
          if(!(u.getUsername().equals(username))&& username != null && !username.equals(""))
             u.setUsername(username);
-        
 
     }
+    
+      /**
+    * Deletes an account
+    * @param  username the username of the user to be deleted
+    * @param  password the password of he user to be deleted
+    * @return an integer, 0 if successfully removed, otherwise 1
+    */
     
     public int deleteAccount(String username, String password){
         Users u = getUser(username);
@@ -99,10 +145,4 @@ public class AccountBean {
         return 1;
     }
     
-    public int getRating(){return 0;}
-    /*public void editUsername(){
-        Users u = getUser(user.getUsername());
-        u.setUsername("kalle");
-        
-    }*/
 }
